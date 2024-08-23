@@ -1,0 +1,19 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [],
+    "id": "fenec:ai_services:chat:prompts:chat_prompts.py__*__MODULE",
+    "file_path": "fenec/ai_services/chat/prompts/chat_prompts.py",
+    "parent_id": "fenec:ai_services:chat:prompts__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 14,
+    "code_content": "DEFAULT_SYSTEM_PROMPT = \"\"\"\nYou are a chatbot that specializes in answering questions about a particular python codebase. You will be given a user question\nand contextual summaries or code from the code base. You must answer the user question using the contextual summaries or code.\n\nIf the question cannot be answered using the contextual summaries or code, you must respond with \"My knowledge base does not include\nthe necessary information to answer your question. Think step by step from first principles inferred from the context to answer your question.\n\"\"\"\n\nDEFAULT_PROMPT_TEMPLATE = \"\"\"\nCONTEXT: {context}\n\nUser Question: {user_question}\n\"\"\"\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "This code defines a `DEFAULT_SYSTEM_PROMPT`, a multi-line string that serves as a foundational guide for a chatbot designed to assist users with questions about a specific Python codebase. The primary purpose of this prompt is to instruct the chatbot on how to utilize contextual summaries or code snippets to provide accurate and relevant responses to user queries. It emphasizes the importance of using available context to formulate answers and provides a fallback response when the information is insufficient, suggesting a step-by-step reasoning approach from first principles. The key component is the `DEFAULT_SYSTEM_PROMPT`, which explicitly outlines the chatbot's operational protocol, ensuring consistency and reliability in its interactions.\n\nThe implementation is straightforward, involving the definition of a static string that encapsulates the chatbot's response logic. This string acts as a template that the chatbot references to maintain a standardized approach to question answering. The technical stack is minimal, as the code does not rely on any external libraries or frameworks; it is purely a string definition. However, in a broader system context, this prompt is likely integrated into a larger AI service that includes natural language processing (NLP) and machine learning (ML) components. These components would handle tasks such as parsing user queries, retrieving relevant code snippets or summaries, and generating responses based on the prompt's guidelines.\n\nIn the larger project or system, this code fits as a core element of a chatbot module within an AI-driven platform. It interacts with other components by providing a consistent framework for interpreting and responding to user inquiries about the codebase. This interaction likely involves integration with NLP models for understanding user intent and ML models for enhancing response accuracy. The prompt ensures that the chatbot can effectively leverage the contextual information it receives, thereby supporting the system's goal of delivering precise and informative answers to users. Its role is crucial in maintaining a standardized approach to question answering, ensuring that the chatbot's responses are contextually relevant and aligned with the system's objectives.",
+    "children_ids": [
+        "fenec:ai_services:chat:prompts:chat_prompts.py__*__MODULE__*__STANDALONE_CODE_BLOCK-1"
+    ]
+}

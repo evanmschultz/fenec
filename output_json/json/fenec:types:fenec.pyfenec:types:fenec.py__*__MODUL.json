@@ -1,0 +1,113 @@
+{
+    "docstring": "Fenec types\n--------------\n\nThis module contains types defined by the fenec library.\nThese types are used for easy implementation in the fenec project and\nprovide convenience for users of the fenec library.",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "Union",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "typing",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ModuleModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-ModuleModel"
+                },
+                {
+                    "name": "ClassModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-ClassModel"
+                },
+                {
+                    "name": "FunctionModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-FunctionModel"
+                },
+                {
+                    "name": "StandaloneCodeBlockModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-StandaloneCodeBlockModel"
+                },
+                {
+                    "name": "DirectoryModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-DirectoryModel"
+                }
+            ],
+            "imported_from": "fenec.models.models",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:models:models.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ClassModelBuilder",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:class_model_builder.py__*__MODULE__*__CLASS-ClassModelBuilder"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.class_model_builder",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:class_model_builder.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "FunctionModelBuilder",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:function_model_builder.py__*__MODULE__*__CLASS-FunctionModelBuilder"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.function_model_builder",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:function_model_builder.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ModuleModelBuilder",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:module_model_builder.py__*__MODULE__*__CLASS-ModuleModelBuilder"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.module_model_builder",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:module_model_builder.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "StandaloneBlockModelBuilder",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:standalone_block_model_builder.py__*__MODULE__*__CLASS-StandaloneBlockModelBuilder"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.standalone_block_model_builder",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:standalone_block_model_builder.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:types:fenec.py__*__MODULE",
+    "file_path": "fenec/types/fenec.py",
+    "parent_id": "fenec:types__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 44,
+    "code_content": "\"\"\"\nFenec types\n--------------\n\nThis module contains types defined by the fenec library.\nThese types are used for easy implementation in the fenec project and\nprovide convenience for users of the fenec library.\n\"\"\"\n\nfrom typing import Union\nfrom fenec.models.models import (\n    ClassModel,\n    FunctionModel,\n    ModuleModel,\n    StandaloneCodeBlockModel,\n    DirectoryModel,\n)\n\nfrom fenec.python_parser.model_builders.class_model_builder import ClassModelBuilder\nfrom fenec.python_parser.model_builders.function_model_builder import (\n    FunctionModelBuilder,\n)\nfrom fenec.python_parser.model_builders.module_model_builder import (\n    ModuleModelBuilder,\n)\nfrom fenec.python_parser.model_builders.standalone_block_model_builder import (\n    StandaloneBlockModelBuilder,\n)\n\nModelType = Union[\n    ModuleModel,\n    ClassModel,\n    FunctionModel,\n    StandaloneCodeBlockModel,\n    DirectoryModel,\n]\n\nBuilderType = Union[\n    ModuleModelBuilder,\n    ClassModelBuilder,\n    FunctionModelBuilder,\n    StandaloneBlockModelBuilder,\n]\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "This code is a critical component of the Fenec library, designed to streamline the parsing and modeling of Python code structures by defining type aliases that enhance implementation efficiency and user convenience. The primary purpose of this module is to provide a set of predefined type aliases, `ModelType` and `BuilderType`, which facilitate the creation, manipulation, and integration of models representing various Python code elements such as modules, classes, functions, standalone code blocks, and directories. `ModelType` is a union of model classes including `ModuleModel`, `ClassModel`, `FunctionModel`, `StandaloneCodeBlockModel`, and `DirectoryModel`, each abstracting different structural elements of Python code. `BuilderType` is a union of builder classes like `ModuleModelBuilder`, `ClassModelBuilder`, `FunctionModelBuilder`, and `StandaloneBlockModelBuilder`, which are responsible for constructing instances of these models, transforming raw parsed data into structured representations.\n\nThe implementation leverages Python's `typing` module to define these unions, ensuring type safety and clarity across the codebase. This use of type aliases not only promotes code readability but also enforces a consistent interface for interacting with different model and builder types, reducing potential errors and improving maintainability. The technical stack primarily involves the Fenec library's internal modules, specifically `fenec.models.models` for model classes and `fenec.python_parser.model_builders` for builder classes, which are integral to the library's functionality by providing foundational components necessary for parsing and modeling Python code structures.\n\nIn the context of the larger Fenec project, this module serves as a foundational element that standardizes type definitions, promoting consistency and reducing complexity in the library's code parsing and modeling functionalities. It interacts with other components by providing a common interface for model and builder types, facilitating seamless integration and extension within the Fenec ecosystem. This standardization is crucial for ensuring that different parts of the library can work together harmoniously, allowing developers to build upon and extend the library's capabilities with ease. By providing a clear and consistent framework for defining and using models and builders, this module plays a vital role in the overall architecture of the Fenec library, supporting its goal of simplifying the process of analyzing and manipulating Python code.",
+    "children_ids": [
+        "fenec:types:fenec.py__*__MODULE__*__STANDALONE_CODE_BLOCK-1",
+        "fenec:types:fenec.py__*__MODULE__*__STANDALONE_CODE_BLOCK-2"
+    ]
+}

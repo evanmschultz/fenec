@@ -1,0 +1,167 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "Path",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "pathlib",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "Summarizer",
+                    "as_name": "",
+                    "local_block_id": "fenec:ai_services:summarizer:summarizer_protocol.py__*__MODULE__*__CLASS-Summarizer"
+                }
+            ],
+            "imported_from": "fenec.ai_services.summarizer.summarizer_protocol",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:ai_services:summarizer:summarizer_protocol.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ArangoDBConnector",
+                    "as_name": "",
+                    "local_block_id": "fenec:databases:arangodb:arangodb_connector.py__*__MODULE__*__CLASS-ArangoDBConnector"
+                }
+            ],
+            "imported_from": "fenec.databases.arangodb.arangodb_connector",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:databases:arangodb:arangodb_connector.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ArangoDBManager",
+                    "as_name": "",
+                    "local_block_id": "fenec:databases:arangodb:arangodb_manager.py__*__MODULE__*__CLASS-ArangoDBManager"
+                }
+            ],
+            "imported_from": "fenec.databases.arangodb.arangodb_manager",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:databases:arangodb:arangodb_manager.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "GraphDBUpdater",
+                    "as_name": "",
+                    "local_block_id": "fenec:updaters:graph_db_updater.py__*__MODULE__*__CLASS-GraphDBUpdater"
+                }
+            ],
+            "imported_from": "fenec.updaters.graph_db_updater",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:updaters:graph_db_updater.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ChromaCollectionManager",
+                    "as_name": "",
+                    "local_block_id": "fenec:databases:chroma:chromadb_collection_manager.py__*__MODULE__*__CLASS-ChromaCollectionManager"
+                }
+            ],
+            "imported_from": "fenec.databases.chroma.chromadb_collection_manager",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:databases:chroma:chromadb_collection_manager.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "OpenAISummarizationConfigs",
+                    "as_name": "",
+                    "local_block_id": "fenec:configs:configs.py__*__MODULE__*__CLASS-OpenAISummarizationConfigs"
+                },
+                {
+                    "name": "OpenAIChatConfigs",
+                    "as_name": "",
+                    "local_block_id": "fenec:configs:configs.py__*__MODULE__*__CLASS-OpenAIChatConfigs"
+                },
+                {
+                    "name": "OllamaSummarizationConfigs",
+                    "as_name": "",
+                    "local_block_id": "fenec:configs:configs.py__*__MODULE__*__CLASS-OllamaSummarizationConfigs"
+                },
+                {
+                    "name": "OllamaChatConfigs",
+                    "as_name": "",
+                    "local_block_id": "fenec:configs:configs.py__*__MODULE__*__CLASS-OllamaChatConfigs"
+                }
+            ],
+            "imported_from": "fenec.configs",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:configs:configs.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "OpenAIChatAgent",
+                    "as_name": "",
+                    "local_block_id": "fenec:ai_services:chat:openai_agents.py__*__MODULE__*__CLASS-OpenAIChatAgent"
+                }
+            ],
+            "imported_from": "fenec.ai_services.chat.openai_agents",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:ai_services:chat:openai_agents.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ChromaLibrarian",
+                    "as_name": "",
+                    "local_block_id": "fenec:ai_services:librarian:chroma_librarian.py__*__MODULE__*__CLASS-ChromaLibrarian"
+                }
+            ],
+            "imported_from": "fenec.ai_services.librarian.chroma_librarian",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:ai_services:librarian:chroma_librarian.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "setup_chroma",
+                    "as_name": "",
+                    "local_block_id": "fenec:databases:chroma:chroma_setup.py__*__MODULE__*__FUNCTION-setup_chroma"
+                }
+            ],
+            "imported_from": "fenec.databases.chroma.chroma_setup",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:databases:chroma:chroma_setup.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "setup_logging",
+                    "as_name": "",
+                    "local_block_id": "fenec:utilities:logger:logging_config.py__*__MODULE__*__FUNCTION-setup_logging"
+                }
+            ],
+            "imported_from": "fenec.utilities.logger.logging_config",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:utilities:logger:logging_config.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:api.py__*__MODULE",
+    "file_path": "fenec/api.py",
+    "parent_id": "fenec__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 189,
+    "code_content": "from pathlib import Path\n\nfrom fenec.ai_services.summarizer.summarizer_protocol import Summarizer\nfrom fenec.databases.arangodb.arangodb_connector import ArangoDBConnector\nfrom fenec.databases.arangodb.arangodb_manager import ArangoDBManager\nfrom fenec.updaters.graph_db_updater import GraphDBUpdater\nfrom fenec.databases.chroma.chromadb_collection_manager import (\n    ChromaCollectionManager,\n)\nfrom fenec.configs import (\n    OpenAIChatConfigs,\n    OllamaChatConfigs,\n    OpenAISummarizationConfigs,\n    OllamaSummarizationConfigs,\n)\nfrom fenec.ai_services.chat.openai_agents import OpenAIChatAgent\nfrom fenec.ai_services.librarian.chroma_librarian import ChromaLibrarian\nfrom fenec.databases.chroma.chroma_setup import setup_chroma\nfrom fenec.utilities.logger.logging_config import setup_logging\n\n\nclass Fenec:\n    \"\"\"\n    Main interface for the Fenec package.\n\n    This class provides methods to process a codebase and interact with it through a chat interface.\n\n    Attributes:\n        - `path` (Path): The path to the codebase.\n        - `summarization_configs` (SummarizationConfigs): The summarization configurations.\n        - `chat_configs` (ChatCompletionConfigs): The chat configurations.\n        - `updater` (GraphDBUpdater): The updater for the graph database.\n            - default: `GraphDBUpdater()`\n        - `arangodb_connector` (ArangoDBConnector): The ArangoDB connector.\n            - default: `ArangoDBConnector()`\n        - `arangodb_manager` (ArangoDBManager): The ArangoDB manager.\n            - default: `None`; if `None` = `ArangoDBManager(db_connector=self.arangodb_connector)`\n\n\n\n    Methods:\n        - `process_entire_codebase`(updater: GraphDBUpdater = GraphDBUpdater()): Process the entire codebase using the GraphDBUpdater.\n        - `chat`(message: str, chat_config: ChatCompletionConfigs = ChatCompletionConfigs()): Interact with the processed codebase through a chat interface\n\n    Example:\n        ```python\n        summarizer = OpenAISummarizer()\n        updater = GraphDBUpdater(\"/path/to/project\", summarizer=summarizer, output_directory=\"output_json\")\n        fenec = Fenec(\"/path/to/project\", output_directory=\"output_json\")\n\n        fenec.process_entire_codebase(summarizer)\n        response = fenec.chat(\"What does the main function do?\")\n        print(response)\n        ```\n    \"\"\"\n\n    def __init__(\n        self,\n        path: Path = Path(\".\"),\n        summarization_configs: (\n            OpenAISummarizationConfigs | OllamaSummarizationConfigs\n        ) = OpenAISummarizationConfigs(),\n        chat_configs: OpenAIChatConfigs = OpenAIChatConfigs(),\n        arangodb_connector: ArangoDBConnector = ArangoDBConnector(),\n        arangodb_manager: ArangoDBManager | None = None,\n    ) -> None:\n        self.path: Path = path\n        self.summarization_configs: (\n            OpenAISummarizationConfigs | OllamaSummarizationConfigs\n        ) = summarization_configs\n        self.chat_configs: OpenAIChatConfigs = chat_configs\n        self.updater: GraphDBUpdater = GraphDBUpdater(\n            directory=self.path, summarization_configs=self.summarization_configs\n        )\n        self.arangodb_connector: ArangoDBConnector = arangodb_connector\n        if not arangodb_manager:\n            self.arangodb_manager: ArangoDBManager = ArangoDBManager(\n                db_connector=self.arangodb_connector\n            )\n        else:\n            self.arangodb_manager: ArangoDBManager = arangodb_manager\n        setup_logging()\n\n    def process_codebase(\n        self,\n        num_of_passes: int = 1,\n        process_all: bool = False,\n    ) -> None:\n        \"\"\"\n        Process the entire codebase using the GraphDBUpdater.\n\n        This method initializes the GraphDBUpdater, processes the codebase, and stores the resulting\n        ChromaCollectionManager for later use in chat interactions.\n\n        Args:\n            - `updater` (GraphDBUpdater): The updater for the graph database.\n\n        Raises:\n            - `Exception`: If there's an error during the codebase processing.\n        \"\"\"\n\n        try:\n            if process_all:\n                self.chroma_collection_manager: ChromaCollectionManager = (\n                    self.updater.update_all(num_of_passes)\n                )\n            else:\n                self.chroma_collection_manager: ChromaCollectionManager = (\n                    self.updater.update_changed(num_of_passes)\n                )\n            self.chroma_librarian = ChromaLibrarian(self.chroma_collection_manager)\n        except Exception as e:\n            raise Exception(f\"Error processing codebase: {str(e)}\")\n\n    def connect_to_vectorstore(self, chromadb_name: str = \"fenec\") -> None:\n        \"\"\"\n        Connect to an existing ChromaDB collection.\n\n        This method initializes the ChromaCollectionManager for the specified collection name\n        and stores it for later use in chat interactions.\n\n        Args:\n            - `chromadb_name` (str): Name of the ChromaDB collection.\n\n        Raises:\n            - `Exception`: If there's an error during the connection.\n        \"\"\"\n\n        try:\n            self.chroma_collection_manager: ChromaCollectionManager = setup_chroma(\n                chromadb_name\n            )\n            self.chroma_librarian = ChromaLibrarian(self.chroma_collection_manager)\n\n            if not self.arangodb_manager.get_graph():\n                print(\"Graph not found. Constructing graph from ChromaDB...\")\n                self.construct_graph_from_chromadb()\n            else:\n                print(\"Connected to existing graph.\")\n        except Exception as e:\n            raise Exception(f\"Error connecting to ChromaDB: {str(e)}\")\n\n    def chat(\n        self,\n        message: str,\n    ) -> str:\n        \"\"\"\n        Interact with the processed codebase through a chat interface.\n\n        This method uses the stored ChromaCollectionManager to process the user's message\n        and return a response.\n\n        Args:\n            - `message` (str): The user's input message or question.\n            - `chat_config` (ChatCompletionConfigs): Configuration for the chat completion.\n                - default: ChatCompletionConfigs().\n\n        Returns:\n            - `str`: The AI's response to the user's message.\n\n        Raises:\n            - `ValueError`: If the codebase hasn't been processed yet.\n        \"\"\"\n        if not self.chroma_librarian:\n            raise ValueError(\n                \"Codebase has not been processed. Call process_codebase() first.\"\n            )\n        openai_chat_agent = OpenAIChatAgent(\n            self.chroma_librarian, configs=self.chat_configs\n        )\n        response: str | None = openai_chat_agent.get_response(message)\n        return response if response else \"I'm sorry, I couldn't generate a response.\"\n\n    def construct_graph_from_chromadb(self, force: bool = False) -> None:\n        \"\"\"\n        Constructs a graph in ArangoDB from the ChromaDB collection.\n\n        Args:\n            - `force` (bool): Whether to force the construction of the graph.\n        \"\"\"\n        if force:\n            self.arangodb_manager.delete_graph()\n            self.arangodb_manager.construct_graph_from_chromadb(\n                self.chroma_collection_manager\n            )\n            print(\"Graph constructed from ChromaDB collection.\")\n        else:\n            print(\"Graph already exists. Use force=True to reconstruct.\")\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "The provided Python code defines the `Fenec` class, which serves as the central interface for the Fenec package, designed to facilitate comprehensive codebase analysis and interaction through a chat interface. The primary purpose of this code is to enable users to process a codebase, update a graph database with the processed information, and interact with the data using a conversational system. This functionality is significant for developers seeking to efficiently understand and query their codebases, bridging the gap between raw code data and user interaction.\n\nKey components of the code include: the `Fenec` class, which orchestrates the overall functionality; `GraphDBUpdater`, responsible for updating the graph database with codebase information; `ArangoDBConnector` and `ArangoDBManager`, which manage connections and operations with the ArangoDB graph database; `ChromaCollectionManager` and `ChromaLibrarian`, which handle ChromaDB collections for vector storage; and `OpenAIChatAgent`, which facilitates chat interactions by generating responses based on processed data. The `process_codebase` method processes the codebase using `GraphDBUpdater`, storing results in `ChromaCollectionManager` for subsequent chat interactions. The `connect_to_vectorstore` method connects to a ChromaDB collection, constructing a graph in ArangoDB if necessary. The `chat` method allows user interaction with the processed data, leveraging `OpenAIChatAgent` to generate responses. The `construct_graph_from_chromadb` method builds a graph in ArangoDB from ChromaDB data, with an option to force reconstruction.\n\nThe implementation involves initializing the `Fenec` class with configurations for summarization and chat, setting up logging, and managing database connections. The `process_codebase` method can handle both full and incremental updates to the codebase, ensuring efficient data processing. The `chat` method ensures that user queries are processed only after the codebase has been analyzed, providing accurate and contextually relevant responses. Notable algorithms and design patterns include the use of a graph database for structured data representation and a conversational AI model for natural language interaction.\n\nThe technical stack comprises ArangoDB for graph database management, providing a robust and scalable solution for handling complex data relationships; ChromaDB for vector storage, enabling efficient retrieval of processed codebase information; and OpenAI for chat capabilities, utilizing advanced language models to generate human-like responses. Logging is configured to provide operational insights and facilitate debugging. Custom configurations such as `OpenAISummarizationConfigs` and `OpenAIChatConfigs` are used to tailor the processing and interaction to specific needs.\n\nIn the context of a larger system, this code integrates with AI services and databases to offer a comprehensive tool for codebase analysis and interaction. It supports developers in understanding and querying their code through a conversational interface, enhancing productivity and code comprehension. The modular design allows for easy integration with other components, such as data acquisition systems and visualization tools, making it a versatile addition to any development environment. This integration ensures that the Fenec package can be a pivotal part of a developer's toolkit, providing insights and facilitating communication within complex codebases.",
+    "children_ids": [
+        "fenec:api.py__*__MODULE__*__CLASS-Fenec"
+    ]
+}

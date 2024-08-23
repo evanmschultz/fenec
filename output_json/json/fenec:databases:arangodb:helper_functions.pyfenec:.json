@@ -1,0 +1,78 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "BlockType",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:enums.py__*__MODULE__*__CLASS-BlockType"
+                }
+            ],
+            "imported_from": "fenec.models.enums",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:models:enums.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ModuleModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-ModuleModel"
+                },
+                {
+                    "name": "ClassModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-ClassModel"
+                },
+                {
+                    "name": "FunctionModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-FunctionModel"
+                },
+                {
+                    "name": "StandaloneCodeBlockModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-StandaloneCodeBlockModel"
+                },
+                {
+                    "name": "DirectoryModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-DirectoryModel"
+                }
+            ],
+            "imported_from": "fenec.models.models",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:models:models.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ModelType",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "fenec.types.fenec",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:types:fenec.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:databases:arangodb:helper_functions.py__*__MODULE",
+    "file_path": "fenec/databases/arangodb/helper_functions.py",
+    "parent_id": "fenec:databases:arangodb__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 52,
+    "code_content": "from fenec.models.enums import BlockType\nfrom fenec.models.models import (\n    ModuleModel,\n    ClassModel,\n    FunctionModel,\n    StandaloneCodeBlockModel,\n    DirectoryModel,\n)\n\nfrom fenec.types.fenec import ModelType\n\n\ndef pluralized_and_lowered_block_types() -> list[str]:\n    \"\"\"Returns a list of the pluralized and lowered block types.\"\"\"\n\n    return [pluralize_block_type(block_type).lower() for block_type in BlockType]\n\n\ndef pluralize_block_type(block_type: str) -> str:\n    \"\"\"Pluralizes the block type.\"\"\"\n\n    if block_type == BlockType.CLASS:\n        return \"classes\"\n    elif block_type == BlockType.DIRECTORY:\n        return \"directories\"\n    else:\n        return f\"{block_type.lower()}s\"\n\n\ndef create_model_from_vertex(vertex_data: dict) -> ModelType:\n    \"\"\"\n    Creates a model from the vertex data.\n\n    Args:\n        - vertex_data (dict): The vertex data.\n    \"\"\"\n\n    block_type: str | None = vertex_data.get(\"block_type\")\n\n    if block_type == BlockType.MODULE:\n        return ModuleModel(**vertex_data)\n    elif block_type == BlockType.CLASS:\n        return ClassModel(**vertex_data)\n    elif block_type == BlockType.FUNCTION:\n        return FunctionModel(**vertex_data)\n    elif block_type == BlockType.STANDALONE_CODE_BLOCK:\n        return StandaloneCodeBlockModel(**vertex_data)\n    elif block_type == BlockType.DIRECTORY:\n        return DirectoryModel(**vertex_data)\n    else:\n        raise ValueError(f\"Unknown block type: {block_type}\")\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "This code is part of a data normalization module within a larger system, designed to facilitate the dynamic creation and manipulation of models representing various types of code blocks, such as modules, classes, functions, standalone code blocks, and directories. Its primary purpose is to convert vertex data into specific model instances based on the block type, which is crucial for systems that need to dynamically handle and represent different code structures in a standardized format. Key components include the `pluralized_and_lowered_block_types` function, which generates a list of block types in their pluralized and lowercase forms, aiding in consistent data handling and processing; the `pluralize_block_type` function, responsible for converting singular block types to their plural forms, specifically handling special cases like \"class\" to \"classes\" and \"directory\" to \"directories\"; and the `create_model_from_vertex` function, which constructs model instances from vertex data by mapping block types to their corresponding model classes, such as `ModuleModel`, `ClassModel`, `FunctionModel`, `StandaloneCodeBlockModel`, and `DirectoryModel`.\n\nThe implementation employs a straightforward conditional logic structure to determine the appropriate model class based on the block type, ensuring flexibility and extensibility in handling different code structures. This approach allows for easy adaptation and extension, as new block types can be integrated by simply adding new conditions and corresponding model classes. The use of Python's type hinting, such as `str | None` for optional types, enhances code readability and maintainability by clearly indicating expected data types. The `create_model_from_vertex` function acts as a dynamic factory method, leveraging Python's dictionary unpacking to instantiate model classes with the provided vertex data, following a design pattern similar to the Factory Method pattern.\n\nThe technical stack includes the `fenec.models.enums` module for block type enumeration, which provides a standardized set of block types that the system can recognize and process, and the `fenec.models.models` module for model class definitions, which are integral to the code's functionality as they define the structure and behavior of each block type model. These components are part of the larger Fenec framework, which likely provides additional utilities and infrastructure for managing and analyzing code repositories.\n\nIn the context of a larger system, this code acts as a utility for transforming raw vertex data into structured models, potentially interfacing with databases or other components that require a standardized representation of code elements. Its modular design allows for easy integration and adaptation within systems that manage or analyze code repositories, enabling seamless interaction with other components that may perform tasks such as code analysis, visualization, or storage. This code is a critical part of a system that requires dynamic and flexible handling of diverse code structures, supporting a wide range of applications from code refactoring tools to integrated development environments (IDEs). By ensuring consistent formatting and representation of block types, it plays a significant role in maintaining uniformity across the system, facilitating efficient data processing, storage, and retrieval.",
+    "children_ids": [
+        "fenec:databases:arangodb:helper_functions.py__*__MODULE__*__FUNCTION-pluralized_and_lowered_block_types",
+        "fenec:databases:arangodb:helper_functions.py__*__MODULE__*__FUNCTION-pluralize_block_type",
+        "fenec:databases:arangodb:helper_functions.py__*__MODULE__*__FUNCTION-create_model_from_vertex"
+    ]
+}

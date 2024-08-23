@@ -1,0 +1,57 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "logging",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "RichHandler",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "rich.logging",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "Syntax",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "rich.syntax",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        }
+    ],
+    "id": "fenec:utilities:logger:logging_config.py__*__MODULE",
+    "file_path": "fenec/utilities/logger/logging_config.py",
+    "parent_id": "fenec:utilities:logger__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 73,
+    "code_content": "import logging\n\nfrom rich.logging import RichHandler\nfrom rich.syntax import Syntax\n\n\ndef setup_logging(level=logging.INFO) -> None:\n    \"\"\"\n    Configures the logging system to use RichSyntaxHandler for output.\n\n    This function sets up logging with a specific log level and format. It utilizes the RichSyntaxHandler to support rich text and syntax highlighting in log outputs.\n\n    Args:\n        level (int, optional): The logging level to set for the root logger. Defaults to logging.INFO.\n\n    Example:\n        >>> setup_logging(logging.DEBUG)\n        # Configures logging at DEBUG level with RichSyntaxHandler.\n    \"\"\"\n\n    format_str = \"%(message)s\"\n    logging.basicConfig(\n        level=level,\n        format=format_str,\n        handlers=[RichHandler(markup=True)],\n    )\n\n\nclass RichSyntaxHandler(RichHandler):\n    \"\"\"\n    A custom logging handler that extends RichHandler to add syntax highlighting.\n\n    This handler checks if the log record contains a 'syntax_highlight' attribute and, if so, uses 'rich.syntax.Syntax' to render the message with Python syntax highlighting.\n\n    Inherits:\n        RichHandler: The base handler provided by the rich library for rich text formatting.\n    \"\"\"\n\n    def emit(self, record) -> None:\n        \"\"\"\n        Emits a logging record.\n\n        If the record has the 'syntax_highlight' attribute set to True, it renders the 'content' attribute of the record with syntax highlighting. Otherwise, it falls back to the standard behavior of RichHandler.\n\n        Args:\n            record: The logging record to emit.\n\n        Example:\n            # Assuming `logger` is a logger instance\n            >>> logger.info(\"Regular log message\")\n            # Outputs a regular log message.\n\n            >>> logger.info(\"Highlighted log message\", extra={\"syntax_highlight\": True, \"content\": \"print('Hello, world!')\"})\n            # Outputs the message with syntax highlighting.\n        \"\"\"\n\n        try:\n            if hasattr(record, \"syntax_highlight\") and getattr(\n                record, \"syntax_highlight\"\n            ):\n                content: str = getattr(record, \"content\", \"\")\n                if isinstance(content, str):\n                    syntax = Syntax(\n                        content, \"python\", theme=\"material\", line_numbers=True\n                    )\n                    self.console.print(syntax)\n                return\n\n        except Exception as e:\n            self.handleError(record)\n\n        super().emit(record)\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "This Python code module is designed to enhance the logging system by integrating rich text formatting and syntax highlighting capabilities, significantly improving the readability and presentation of log outputs. Its primary purpose is to configure logging with a specified log level and format using the Rich library's `RichHandler`, which allows for advanced text styling in the console. The key components include the `setup_logging` function and the `RichSyntaxHandler` class. The `setup_logging` function configures the logging system by defining a simple message format and employing the `logging.basicConfig` method to apply the configuration. It specifically integrates the `RichHandler` with markup enabled, allowing for enhanced log output that includes rich text features such as color and style. The `RichSyntaxHandler` class extends `RichHandler` to add syntax highlighting for log messages, particularly useful for developers who need to log and review code snippets directly within their logs.\n\nThe implementation leverages the Python `logging` module for basic logging functionality and the Rich library for enhanced text formatting and syntax highlighting. The `setup_logging` function sets the logging level and format, utilizing `RichHandler` to enable rich text formatting. The `RichSyntaxHandler` class overrides the `emit` method to check for a `syntax_highlight` attribute in log records. If this attribute is present and set to True, it uses the `Syntax` class from the Rich library to render the message with Python syntax highlighting, applying a \"material\" theme and displaying line numbers. This is particularly useful for developers who need to log and review code snippets directly within their logs. If the `syntax_highlight` attribute is not present or set to False, the handler defaults to the standard behavior of `RichHandler`, which still provides rich text formatting but without syntax highlighting. The implementation employs a try-except block to handle potential exceptions during the syntax highlighting process, ensuring robust error handling by invoking the `handleError` method if an exception occurs.\n\nThe technical stack includes the Python `logging` module and the Rich library. The Rich library is a powerful tool for creating visually appealing console outputs, and in this context, it is used to improve the readability and informativeness of log messages. The `Syntax` class from Rich is specifically used to apply syntax highlighting to Python code within log messages, making it easier to identify and understand code snippets.\n\nIn the context of a larger system, this code functions as a utility to improve the logging experience across various applications. It can be integrated into any Python project that requires enhanced log output, making it easier for developers to parse and understand log messages. This is especially useful in complex systems where quick identification of issues through logs is necessary. By providing a more readable and aesthetically pleasing log output, this code contributes to more efficient debugging and system monitoring processes, fitting seamlessly into the broader codebase as a logging enhancement tool. It interfaces with other components that generate log messages and can be easily extended or customized to support additional languages or themes as needed, thereby enhancing the overall productivity and reliability of the system.",
+    "children_ids": [
+        "fenec:utilities:logger:logging_config.py__*__MODULE__*__FUNCTION-setup_logging",
+        "fenec:utilities:logger:logging_config.py__*__MODULE__*__CLASS-RichSyntaxHandler"
+    ]
+}

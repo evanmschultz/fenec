@@ -1,0 +1,130 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "annotations",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "__future__",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "TYPE_CHECKING",
+                    "as_name": "",
+                    "local_block_id": ""
+                },
+                {
+                    "name": "Any",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "typing",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "logging_decorator",
+                    "as_name": "",
+                    "local_block_id": "fenec:utilities:logger:decorators.py__*__MODULE__*__FUNCTION-logging_decorator"
+                }
+            ],
+            "imported_from": "fenec.utilities.logger.decorators",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:utilities:logger:decorators.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "BaseModelBuilder",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:base_model_builder.py__*__MODULE__*__CLASS-BaseModelBuilder"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.base_model_builder",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:base_model_builder.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ClassSpecificAttributes",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-ClassSpecificAttributes"
+                },
+                {
+                    "name": "ClassModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-ClassModel"
+                },
+                {
+                    "name": "FunctionModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-FunctionModel"
+                },
+                {
+                    "name": "StandaloneCodeBlockModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-StandaloneCodeBlockModel"
+                }
+            ],
+            "imported_from": "fenec.models.models",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:models:models.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "BlockType",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:enums.py__*__MODULE__*__CLASS-BlockType"
+                }
+            ],
+            "imported_from": "fenec.models.enums",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:models:enums.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "DecoratorModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-DecoratorModel"
+                },
+                {
+                    "name": "ClassKeywordModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-ClassKeywordModel"
+                }
+            ],
+            "imported_from": "fenec.models.models",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:models:models.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:python_parser:model_builders:class_model_builder.py__*__MODULE",
+    "file_path": "fenec/python_parser/model_builders/class_model_builder.py",
+    "parent_id": "fenec:python_parser:model_builders__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 103,
+    "code_content": "from __future__ import annotations\nfrom typing import TYPE_CHECKING, Any\n\nfrom fenec.utilities.logger.decorators import logging_decorator\n\nfrom fenec.python_parser.model_builders.base_model_builder import BaseModelBuilder\nfrom fenec.models.models import (\n    ClassSpecificAttributes,\n    ClassModel,\n    FunctionModel,\n    StandaloneCodeBlockModel,\n)\nfrom fenec.models.enums import BlockType\n\n\nif TYPE_CHECKING:\n    from fenec.models.models import (\n        ClassKeywordModel,\n        DecoratorModel,\n    )\n\n\nclass ClassModelBuilder(BaseModelBuilder):\n    \"\"\"\n    A builder class for constructing a model of a Python class.\n\n    This class extends BaseModelBuilder and is specialized for building a model of a Python class, capturing details such as decorators, base classes, documentation strings, class attributes, and class-specific keywords.\n\n    Attributes:\n        - class_attributes (ClassSpecificAttributes): An instance containing attributes specific to a class, like name, decorators, bases, etc.\n\n    Args:\n        - id (str): The unique identifier for the class model.\n        - class_name (str): The name of the class.\n        - parent_id (str): The identifier of the parent model (e.g., module or class containing this class).\n    \"\"\"\n\n    def __init__(\n        self, id: str, class_name: str, parent_id: str, file_path: str\n    ) -> None:\n        super().__init__(\n            id=id, block_type=BlockType.CLASS, parent_id=parent_id, file_path=file_path\n        )\n\n        self.class_attributes = ClassSpecificAttributes(\n            class_name=class_name,\n            decorators=None,\n            bases=None,\n            docstring=None,\n            keywords=None,\n        )\n\n    def set_decorators(\n        self, decorators: list[DecoratorModel] | None\n    ) -> \"ClassModelBuilder\":\n        \"\"\"Adds decorator to the decorators list in the class model.\"\"\"\n        if decorators:\n            self.class_attributes.decorators = decorators\n        else:\n            self.class_attributes.decorators = None\n        return self\n\n    def set_bases(self, base_classes: list[str] | None) -> \"ClassModelBuilder\":\n        \"\"\"Sets the list of base classes to the class model.\"\"\"\n        self.class_attributes.bases = base_classes\n        return self\n\n    def set_docstring(self, docstring: str | None) -> \"ClassModelBuilder\":\n        \"\"\"Sets the docstring of the class in the model.\"\"\"\n        self.class_attributes.docstring = docstring\n        return self\n\n    # # TODO: Add attribute model\n    # def add_attribute(self, attribute) -> \"ClassModelBuilder\":\n    #     \"\"\"Adds an attribute of the class in the model.\"\"\"\n    #     if not self.class_attributes.attributes:\n    #         self.class_attributes.attributes = []\n    #     self.class_attributes.attributes.append(attribute)\n    #     return self\n\n    def set_keywords(\n        self, keyword_list: list[ClassKeywordModel] | None\n    ) -> \"ClassModelBuilder\":\n        \"\"\"Sets the list of keywords to the class model.\"\"\"\n        self.class_attributes.keywords = keyword_list\n        return self\n\n    def _get_class_specific_attributes(self) -> dict[str, Any]:\n        \"\"\"Gets the class specific attributes.\"\"\"\n        return self.class_attributes.model_dump()\n\n    @logging_decorator(message=\"Building ClassModel\")\n    def build(\n        self,\n    ) -> ClassModel:\n        \"\"\"Creates a ClassModel instance after building and setting the children models.\"\"\"\n        self.build_children()\n        self.set_children_ids()\n        return ClassModel(\n            **self._get_common_attributes(),\n            **self._get_class_specific_attributes(),\n        )\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "The `ClassModelBuilder` is a specialized builder class within a Python parsing and modeling framework, designed to construct a detailed model representation of a Python class. Its primary purpose is to encapsulate and organize various elements of a Python class, such as decorators, base classes, documentation strings, class attributes, and class-specific keywords, into a structured model. This is significant for systems that require a comprehensive understanding of Python code structures, such as code analysis tools, documentation generators, or integrated development environments (IDEs). Key components include the `__init__` method, which initializes the builder with unique identifiers and class-specific attributes; methods like `set_decorators`, `set_bases`, `set_docstring`, and `set_keywords`, which configure the class model's decorators, base classes, docstring, and keywords respectively; `_get_class_specific_attributes`, which retrieves class-specific attributes; and the `build` method, which constructs a `ClassModel` instance by integrating both common and class-specific attributes. The implementation employs object-oriented principles, utilizing inheritance to extend `BaseModelBuilder` and encapsulating class-specific attributes within a `ClassSpecificAttributes` instance. It follows a builder design pattern, allowing for step-by-step construction of a class model. The `build` method is enhanced with a custom `logging_decorator` from `fenec.utilities.logger.decorators`, which logs the building process, thereby improving traceability and debugging. The code also hints at future expansion with a commented-out `add_attribute` method, suggesting plans to incorporate additional class attributes into the model.\n\nThe technical stack includes Python's type hinting and annotations, which enhance code readability and maintainability by specifying expected data types. The `fenec` library's models and enums are leveraged to define and manage class attributes and types, ensuring a modular and extensible design. This includes importing `ClassSpecificAttributes`, `ClassModel`, `FunctionModel`, `StandaloneCodeBlockModel`, and `BlockType` from `fenec.models.models` and `fenec.models.enums`, which are integral to the model-building process. In the context of a larger project, this code fits into a Python parsing and modeling framework, likely interacting with other model builders and parsers to create a comprehensive representation of Python code structures. It serves as a crucial component in systems that require detailed code analysis, such as static analysis tools, code documentation systems, or IDEs. By providing a structured representation of Python classes, it facilitates further processing, analysis, and visualization of code, contributing to the overall functionality and robustness of the larger system. This code snippet also plays a role in a type-checking mechanism within the project, enhancing code reliability and maintainability by ensuring type correctness during development. It interacts with other parts of the system by supplying type annotations that aid in maintaining a robust and error-free codebase, crucial for large-scale applications where type safety is paramount.",
+    "children_ids": [
+        "fenec:python_parser:model_builders:class_model_builder.py__*__MODULE__*__STANDALONE_CODE_BLOCK-1",
+        "fenec:python_parser:model_builders:class_model_builder.py__*__MODULE__*__CLASS-ClassModelBuilder"
+    ]
+}

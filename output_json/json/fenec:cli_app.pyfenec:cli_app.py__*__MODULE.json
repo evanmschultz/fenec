@@ -1,0 +1,139 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "logging",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "typer",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "Optional",
+                    "as_name": "",
+                    "local_block_id": ""
+                },
+                {
+                    "name": "Any",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "typing",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "Annotated",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "typing_extensions",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "Path",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "pathlib",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "print",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "rich",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "Fenec",
+                    "as_name": "",
+                    "local_block_id": "fenec:api.py__*__MODULE__*__CLASS-Fenec"
+                }
+            ],
+            "imported_from": "fenec",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:api.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "GraphDBUpdater",
+                    "as_name": "",
+                    "local_block_id": "fenec:updaters:graph_db_updater.py__*__MODULE__*__CLASS-GraphDBUpdater"
+                }
+            ],
+            "imported_from": "fenec.updaters.graph_db_updater",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:updaters:graph_db_updater.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "setup_logging",
+                    "as_name": "",
+                    "local_block_id": "fenec:utilities:logger:logging_config.py__*__MODULE__*__FUNCTION-setup_logging"
+                }
+            ],
+            "imported_from": "fenec.utilities.logger.logging_config",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:utilities:logger:logging_config.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:cli_app.py__*__MODULE",
+    "file_path": "fenec/cli_app.py",
+    "parent_id": "fenec__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 166,
+    "code_content": "import logging\nimport typer\nfrom typing import Optional, Any\nfrom typing_extensions import Annotated\nfrom pathlib import Path\nfrom fenec import Fenec\nfrom fenec.updaters.graph_db_updater import GraphDBUpdater\nfrom rich import print\nfrom fenec.utilities.logger.logging_config import setup_logging\n\napp = typer.Typer()\n\nfenec_instance: Optional[Fenec] = None\n\n\ndef process_codebase(\n    fenec_instance: Fenec,\n    num_of_passes: int = 1,\n    process_all: bool = False,\n) -> None:\n    \"\"\"\n    Process the codebase at the given path.\n    \"\"\"\n    try:\n        fenec_instance.process_codebase(num_of_passes, process_all)\n        typer.echo(\"Codebase processing complete.\")\n    except Exception as e:\n        logging.exception(\"Error processing codebase\")\n        typer.echo(f\"Error processing codebase: {e}\")\n        raise typer.Exit(1)\n\n\ndef connect_to_vectorstore(fenec_instance: Fenec) -> None:\n    \"\"\"\n    Connect to an existing vectorstore.\n    \"\"\"\n    try:\n        fenec_instance.connect_to_vectorstore()\n        typer.echo(\"Connected to existing vectorstore.\")\n    except Exception as e:\n        logging.exception(\"Error connecting to vectorstore\")\n        typer.echo(f\"Error connecting to vectorstore: {e}\")\n        raise typer.Exit(1)\n\n\ndef chat_loop() -> None:\n    \"\"\"\n    Start a chat session with Fenec.\n    \"\"\"\n    if not fenec_instance:\n        typer.echo(\n            \"Error: Codebase has not been processed. Please process the codebase first.\"\n        )\n        raise typer.Exit(1)\n\n    print(\n        \"[blue]Chat[/blue] session started. Type [magenta]'exit'[/magenta] to end the chat.\"\n    )\n    while True:\n        user_input = typer.prompt(\"You\")\n        if user_input.lower() == \"exit\":\n            break\n        try:\n            response = fenec_instance.chat(user_input)\n            typer.echo(f\"AI: {response}\")\n        except Exception as e:\n            logging.exception(\"Error during chat\")\n            typer.echo(f\"Error during chat: {e}\")\n            break\n\n\ndef get_path_from_option(option_value: Any) -> Path:\n    if hasattr(option_value, \"default\"):\n        # If it's an OptionInfo object, use its default value\n        path_str = str(option_value.default)\n    else:\n        # Otherwise, assume it's already a string\n        path_str = str(option_value)\n\n    path: Path = Path(path_str).resolve()\n    if not path.exists():\n        raise typer.BadParameter(f\"The path '{path}' does not exist.\")\n    return path\n\n\n@app.command()\ndef main(\n    path: Annotated[\n        str, typer.Argument(help=\"The path to the directory containing the codebase\")\n    ] = \".\",\n    update: Annotated[\n        bool,\n        typer.Option(\n            help=\"Whether to update the summaries and databases with the code that has changed since the last git commit\"\n        ),\n    ] = False,\n    update_all: Annotated[\n        bool,\n        typer.Option(\n            help=\"Whether to update the summaries and databases for the whole project, `update` must be False\"\n        ),\n    ] = False,\n    chat: Annotated[\n        bool,\n        typer.Option(\n            help=\"Whether to start a chat session with Fenec, if updating it will run after processing the codebase\"\n        ),\n    ] = True,\n    passes: Annotated[\n        int,\n        typer.Argument(\n            help=\"The number of passes the summarizer will take, 1 is bottom-up, 3 is bottom-up, top-down, then bottom-up again\"\n        ),\n    ] = 1,\n    construct_graph: Annotated[\n        bool, typer.Option(help=\"Construct graph from ChromaDB if it doesn't exist\")\n    ] = False,\n) -> None:\n    \"\"\"\n    Process the codebase and start a chat session with Fenec.\n    \"\"\"\n    setup_logging()\n\n    try:\n\n        if passes not in {1, 3}:\n            raise typer.BadParameter(\"Number of passes must be 1 or 3\")\n\n        global fenec_instance\n        fenec_instance = Fenec(path=Path(path))\n\n        if construct_graph:\n            print(\"[bold blue]FENEC[/bold blue]\\n\\nConstructing graph from ChromaDB\")\n            connect_to_vectorstore(fenec_instance)\n            fenec_instance.construct_graph_from_chromadb(force=True)\n        elif update:\n            print(\n                f\"[bold blue]FENEC[/bold blue]\\n\\nProcessing updated codebase at path: '{path}'\"\n            )\n            process_codebase(fenec_instance, passes, False)\n        elif update_all:\n            print(\n                f\"[bold blue]FENEC[/bold blue]\\n\\nProcessing the entire codebase at path: '{path}'\"\n            )\n            process_codebase(fenec_instance, passes, True)\n        else:\n            print(\"[blue]FENEC[/blue]\\n\\nConnecting to existing vectorstore\")\n            connect_to_vectorstore(fenec_instance)\n        if chat:\n            chat_loop()\n    except typer.BadParameter as e:\n        logging.error(f\"Invalid parameter: {e}\")\n        typer.echo(str(e))\n        raise typer.Exit(1)\n    except typer.Exit:\n        logging.error(\"Codebase processing failed\")\n        raise\n    except Exception as e:\n        logging.exception(\"An unexpected error occurred\")\n        typer.echo(f\"An unexpected error occurred: {e}\")\n        raise typer.Exit(1)\n\n\nif __name__ == \"__main__\":\n    app()\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "This Python script serves as a command-line interface (CLI) application designed to manage and interact with a codebase using the Fenec library, which is a tool for codebase analysis and interaction. The primary purpose of this script is to facilitate the processing of a codebase, update summaries and databases, and enable a chat session with the Fenec system, thereby providing a comprehensive interface for developers to engage with their codebase in a structured manner. Key components include: the `process_codebase` function, which processes the codebase with a specified number of passes and can handle either incremental or full updates; `connect_to_vectorstore`, which establishes a connection to an existing vector store for data retrieval and storage; `chat_loop`, which initiates and manages a chat session with Fenec, allowing for interactive user input; `get_path_from_option`, which resolves and validates file paths from command-line options; and the `main` function, which orchestrates the overall workflow, handling command-line arguments and options to execute the appropriate actions.\n\nThe implementation leverages Typer for efficient CLI command handling, providing a user-friendly interface with options for updating code summaries, constructing graphs from ChromaDB, and initiating chat sessions. The script uses a global `fenec_instance` to maintain state across functions, ensuring consistent access to the Fenec library's capabilities. Error handling is robust, utilizing Typer's exit mechanism to ensure graceful termination on exceptions, and logging is configured via a custom setup function from Fenec's utilities to provide detailed runtime information. The technical stack includes Typer for CLI management, Fenec for codebase processing and interaction, and Rich for enhanced console output, which improves the user experience with styled text and better readability.\n\nIn the context of a larger system, this script acts as a crucial interface for developers to interact with the Fenec library, enabling comprehensive codebase analysis and interaction through a vector store. It potentially integrates with other components like ChromaDB for graph construction, allowing for advanced data visualization and analysis. The script's modular design and use of Fenec's capabilities make it a versatile tool within a development environment, supporting various workflows and enhancing the overall efficiency of codebase management and interaction. This setup is particularly beneficial in environments where command-line tools are used for automation, scripting, or remote management, providing a seamless way to interact with the system's functionalities.",
+    "children_ids": [
+        "fenec:cli_app.py__*__MODULE__*__STANDALONE_CODE_BLOCK-1",
+        "fenec:cli_app.py__*__MODULE__*__STANDALONE_CODE_BLOCK-2",
+        "fenec:cli_app.py__*__MODULE__*__FUNCTION-process_codebase",
+        "fenec:cli_app.py__*__MODULE__*__FUNCTION-connect_to_vectorstore",
+        "fenec:cli_app.py__*__MODULE__*__FUNCTION-chat_loop",
+        "fenec:cli_app.py__*__MODULE__*__FUNCTION-get_path_from_option",
+        "fenec:cli_app.py__*__MODULE__*__FUNCTION-main"
+    ]
+}

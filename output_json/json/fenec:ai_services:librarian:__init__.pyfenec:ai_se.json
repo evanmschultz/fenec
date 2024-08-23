@@ -1,0 +1,59 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "ChromaLibrarian",
+                    "as_name": "",
+                    "local_block_id": "fenec:ai_services:librarian:chroma_librarian.py__*__MODULE__*__CLASS-ChromaLibrarian"
+                }
+            ],
+            "imported_from": "fenec.ai_services.librarian.chroma_librarian",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:ai_services:librarian:chroma_librarian.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ChromaLibrarianPromptCreator",
+                    "as_name": "",
+                    "local_block_id": "fenec:ai_services:librarian:prompts:prompt_creator.py__*__MODULE__*__CLASS-ChromaLibrarianPromptCreator"
+                }
+            ],
+            "imported_from": "fenec.ai_services.librarian.prompts.prompt_creator",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:ai_services:librarian:prompts:prompt_creator.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "DEFAULT_CHROMA_LIBRARIAN_PROMPT",
+                    "as_name": "",
+                    "local_block_id": ""
+                },
+                {
+                    "name": "DEFAULT_CHROMA_LIBRARIAN_SYSTEM_PROMPT",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "fenec.ai_services.librarian.prompts.chroma_librarian_prompts",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:ai_services:librarian:prompts:chroma_librarian_prompts.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:ai_services:librarian:__init__.py__*__MODULE",
+    "file_path": "fenec/ai_services/librarian/__init__.py",
+    "parent_id": "fenec:ai_services:librarian__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 9,
+    "code_content": "from fenec.ai_services.librarian.chroma_librarian import ChromaLibrarian\nfrom fenec.ai_services.librarian.prompts.prompt_creator import (\n    ChromaLibrarianPromptCreator,\n)\nfrom fenec.ai_services.librarian.prompts.chroma_librarian_prompts import (\n    DEFAULT_CHROMA_LIBRARIAN_PROMPT,\n    DEFAULT_CHROMA_LIBRARIAN_SYSTEM_PROMPT,\n)\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "This code is a critical component of an AI-driven librarian service within a vector database management system, designed to enhance the interaction and retrieval processes in a vector search environment. Its primary purpose is to facilitate the generation and management of prompts that guide user interactions, thereby optimizing the retrieval and organization of information stored in vector formats. The key components include: `ChromaLibrarian`, which functions as the primary interface for managing vector data, offering methods for querying and organizing information within the vector database; `ChromaLibrarianPromptCreator`, which is responsible for crafting contextually relevant prompts tailored to the librarian's operational needs, ensuring alignment with system objectives and user requirements; and constants `DEFAULT_CHROMA_LIBRARIAN_PROMPT` and `DEFAULT_CHROMA_LIBRARIAN_SYSTEM_PROMPT`, which provide standardized templates for prompt generation, ensuring consistency across the system.\n\nThe implementation follows a modular design pattern, with each component imported from specific modules within the `fenec.ai_services.librarian` package. This structured approach facilitates easy maintenance and scalability, allowing individual components to be developed and updated independently. The technical stack primarily involves custom modules from the `fenec` library, indicating a specialized framework tailored for AI services, particularly in vector search and prompt management. This framework likely includes tools and abstractions necessary for handling complex AI tasks such as natural language processing and vector data manipulation.\n\nIn the broader context of the AI system, this code plays a pivotal role in streamlining information retrieval and management processes. It integrates with other AI service components to enhance the librarian's functionality in organizing and accessing vectorized data efficiently. This integration potentially involves interfacing with modules responsible for data preprocessing, query optimization, and result ranking, contributing to a cohesive system that improves the overall user experience by delivering accurate and relevant information retrieval capabilities. By serving as a bridge between user interactions and the vector database, this code ensures that the AI framework operates smoothly and effectively, supporting the system's goal of providing intelligent and context-aware information services.",
+    "children_ids": []
+}

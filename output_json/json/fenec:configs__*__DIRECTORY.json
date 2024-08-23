@@ -1,0 +1,12 @@
+{
+    "id": "fenec:configs__*__DIRECTORY",
+    "block_type": "DIRECTORY",
+    "directory_name": "configs",
+    "sub_directories_ids": [],
+    "children_ids": [
+        "fenec:configs:configs.py__*__MODULE",
+        "fenec:configs:__init__.py__*__MODULE"
+    ],
+    "parent_id": "fenec__*__DIRECTORY",
+    "summary": ""
+}

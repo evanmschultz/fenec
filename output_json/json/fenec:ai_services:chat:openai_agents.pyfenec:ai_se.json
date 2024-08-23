@@ -1,0 +1,121 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "logging",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "Sequence",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "typing",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "OpenAI",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "openai",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "OpenAIChatConfigs",
+                    "as_name": "",
+                    "local_block_id": "fenec:configs:configs.py__*__MODULE__*__CLASS-OpenAIChatConfigs"
+                }
+            ],
+            "imported_from": "fenec.configs",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:configs:configs.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "fenec.types.chroma",
+                    "as_name": "chroma_types",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:types:chroma.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "fenec.types.openai",
+                    "as_name": "openai_types",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:types:openai.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ChromaLibrarian",
+                    "as_name": "",
+                    "local_block_id": "fenec:ai_services:librarian:chroma_librarian.py__*__MODULE__*__CLASS-ChromaLibrarian"
+                }
+            ],
+            "imported_from": "fenec.ai_services.librarian.chroma_librarian",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:ai_services:librarian:chroma_librarian.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "DEFAULT_PROMPT_TEMPLATE",
+                    "as_name": "",
+                    "local_block_id": ""
+                },
+                {
+                    "name": "DEFAULT_SYSTEM_PROMPT",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "fenec.ai_services.chat.prompts.chat_prompts",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:ai_services:chat:prompts:chat_prompts.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:ai_services:chat:openai_agents.py__*__MODULE",
+    "file_path": "fenec/ai_services/chat/openai_agents.py",
+    "parent_id": "fenec:ai_services:chat__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 148,
+    "code_content": "import logging\nfrom typing import Sequence\nfrom openai import OpenAI\n\nfrom fenec.configs import OpenAIChatConfigs\nimport fenec.types.chroma as chroma_types\nimport fenec.types.openai as openai_types\n\nfrom fenec.ai_services.librarian.chroma_librarian import ChromaLibrarian\nfrom fenec.ai_services.chat.prompts.chat_prompts import (\n    DEFAULT_PROMPT_TEMPLATE,\n    DEFAULT_SYSTEM_PROMPT,\n)\n\n\nclass OpenAIChatAgent:\n    \"\"\"\n    Represents an agent that interacts with the OpenAI API for generating responses to user questions.\n\n    Args:\n        - `chroma_librarian` (ChromaLibrarian): The librarian handling Chroma queries.\n        - `configs` (OpenAIChatConfigs, optional): Configuration settings for the OpenAI agent.\n\n    Methods:\n        - `get_response`(user_question, prompt_template=DEFAULT_PROMPT_TEMPLATE):\n            Generates a response to the user's question using the specified prompt template.\n\n\n\n    Attributes:\n        - `chroma_librarian` (ChromaLibrarian): The Chroma librarian instance.\n        - `model` (str): The OpenAI model being used.\n        - `client`: The OpenAI API client.\n    \"\"\"\n\n    def __init__(\n        self,\n        chroma_librarian: ChromaLibrarian,\n        configs: OpenAIChatConfigs = OpenAIChatConfigs(),\n    ) -> None:\n        self.chroma_librarian: ChromaLibrarian = chroma_librarian\n        self.configs: OpenAIChatConfigs = configs\n        self.client = OpenAI()\n\n    def get_response(\n        self, user_question: str, prompt_template: str = DEFAULT_PROMPT_TEMPLATE\n    ) -> str | None:\n        \"\"\"\n        Generates a response to the user's question using the OpenAI API.\n\n        Args:\n            - `user_question` (str): The user's question.\n            - `prompt_template` (str, optional): The template for formatting the prompt.\n                default: DEFAULT_PROMPT_TEMPLATE.\n\n        Returns:\n            - `str | None`: The generated response or None if the response could not be generated.\n\n        Raises:\n            - `ValueError`: If user_question is empty.\n            - `RuntimeError`: If there is an issue with the OpenAI API request.\n            - `KeyError`: If the prompt template is missing required keys.\n\n        Example:\n            ```python\n            agent = OpenAIChatAgent(chroma_librarian, model=\"gpt-4o\")\n            try:\n                response = agent.get_response(\"What code blocks use recursion?\")\n                print(response)\n            except ValueError as ve:\n                print(f\"ValueError: {ve}\")\n            except RuntimeError as re:\n                print(f\"RuntimeError: {re}\")\n            except KeyError as ke:\n                print(f\"KeyError: {ke}\")\n            ```\n        \"\"\"\n        if not user_question:\n            raise ValueError(\"User question cannot be empty.\")\n\n        try:\n            chroma_results: chroma_types.QueryResult | None = (\n                self.chroma_librarian.query_chroma(user_question)\n            )\n\n            if not chroma_results:\n                return \"I don't know how to answer that question.\"\n\n            documents: list[list[str]] | None = chroma_results[\"documents\"]\n\n            if not documents:\n                return \"I don't know how to answer that question.\"\n\n            context: str = \"\"\n            for document in documents:\n                context += \"\\n\".join(document) + \"\\n\"\n\n            prompt: str = self._format_prompt(context, user_question, prompt_template)\n\n            messages: Sequence[dict[str, str]] = [\n                {\"role\": \"system\", \"content\": DEFAULT_SYSTEM_PROMPT},\n                {\"role\": \"user\", \"content\": prompt},\n            ]\n\n            response: openai_types.ChatCompletion = self.client.chat.completions.create(\n                model=self.configs.model,\n                messages=messages,  # type: ignore # FIXME: fix type hinting error\n                temperature=self.configs.temperature,\n                # response_format={\"type\": \"json_object\"},\n            )\n            return response.choices[0].message.content\n\n        except Exception as e:\n            raise RuntimeError(f\"Error interacting with OpenAI API: {e}\") from e\n\n    def _format_prompt(\n        self,\n        context: str,\n        user_question: str,\n        prompt_template: str,\n    ) -> str:\n        \"\"\"\n        Formats the prompt for the OpenAI API based on the provided context, user's question, and template.\n\n        Args:\n            - `context` (str): The context derived from Chroma query results.\n            - `user_question` (str): The user's question.\n            - `prompt_template` (str): The template for formatting the prompt.\n\n        Returns:\n            - `str`: The formatted prompt.\n\n        Raises:\n            - `KeyError`: If the prompt template is missing required keys.\n\n        Example:\n            ```python\n            prompt = agent._format_prompt(\"Context here\", \"What is the meaning of life?\", \"Template {context} {user_question}\")\n            print(prompt)\n            ```\n        \"\"\"\n\n        try:\n            return prompt_template.format(context=context, user_question=user_question)\n\n        except KeyError as e:\n            raise KeyError(f\"Prompt template is missing the following key: {e}\") from e\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "The `OpenAIChatAgent` class is a sophisticated component designed to enhance AI-driven conversational interfaces by integrating contextual information from a Chroma database into prompts sent to the OpenAI API. Its primary purpose is to improve the relevance and accuracy of AI-generated responses by leveraging external context, making it a critical part of systems that require dynamic and context-aware interactions. Key components of this class include the `__init__` method, which initializes the agent with a `ChromaLibrarian` instance for retrieving context and optional configuration settings encapsulated in `OpenAIChatConfigs`; the `get_response` method, which manages the process of querying the Chroma database, formatting the prompt, and obtaining a response from the OpenAI API; and the `_format_prompt` method, which constructs the prompt using a specified template, ensuring the integration of context and user questions.\n\nThe implementation follows a structured approach, beginning with the validation of the user question to ensure it is not empty. Upon validation, the `get_response` method queries the Chroma database via the `chroma_librarian` to retrieve relevant documents that provide context for the user's question. These documents are concatenated into a single context string, which is then formatted into a prompt using the `_format_prompt` method. The formatted prompt is sent to the OpenAI API through the `client` attribute, an instance of the OpenAI API client, and the response is extracted from the API's output. The code includes robust error handling for common issues such as empty queries, API request failures, and missing keys in the prompt template, ensuring reliability and resilience in various scenarios.\n\nThe technical stack includes the OpenAI Python client, which facilitates interactions with the OpenAI API, and custom modules from the `fenec` package, such as `ChromaLibrarian` for database queries and `OpenAIChatConfigs` for managing API settings. The `fenec.types.chroma` and `fenec.types.openai` modules provide type definitions that enhance code clarity and maintainability. Although the `logging` module is imported, it is not utilized in the provided code, indicating potential for future enhancements in logging capabilities.\n\nIn the broader system context, this code acts as a bridge between user input and AI-generated responses, integrating with a Chroma-based knowledge retrieval system to provide informed and contextually relevant answers. It is part of a larger AI service architecture, potentially interfacing with other components for data retrieval and user interaction management. The modular design of the `OpenAIChatAgent` allows for easy integration and scalability within the system, supporting various configurations and models as specified by the `OpenAIChatConfigs`. This flexibility makes it a valuable component in applications requiring dynamic and context-aware AI interactions, such as customer support systems, virtual assistants, and educational platforms.",
+    "children_ids": [
+        "fenec:ai_services:chat:openai_agents.py__*__MODULE__*__CLASS-OpenAIChatAgent"
+    ]
+}

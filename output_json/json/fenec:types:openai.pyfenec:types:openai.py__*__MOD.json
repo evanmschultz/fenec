@@ -1,0 +1,68 @@
+{
+    "docstring": "OpenAI Types\n------------\n\nThis module contains types defined by the openai third-party library.\nThese types are used for easy implementation in the fenec project and\nprovide convenience for users of the fenec library.",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "ChatCompletionSystemMessageParam",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "openai.types.chat.chat_completion_system_message_param",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ChatCompletionUserMessageParam",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "openai.types.chat.chat_completion_user_message_param",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ChatCompletionMessageParam",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "openai.types.chat.chat_completion_message_param",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ChatCompletion",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "openai.types.chat.chat_completion",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        }
+    ],
+    "id": "fenec:types:openai.py__*__MODULE",
+    "file_path": "fenec/types/openai.py",
+    "parent_id": "fenec:types__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 18,
+    "code_content": "\"\"\"\nOpenAI Types\n------------\n\nThis module contains types defined by the openai third-party library.\nThese types are used for easy implementation in the fenec project and\nprovide convenience for users of the fenec library.\n\"\"\"\n\nfrom openai.types.chat.chat_completion_system_message_param import (\n    ChatCompletionSystemMessageParam,\n)\nfrom openai.types.chat.chat_completion_user_message_param import (\n    ChatCompletionUserMessageParam,\n)\nfrom openai.types.chat.chat_completion_message_param import ChatCompletionMessageParam\nfrom openai.types.chat.chat_completion import ChatCompletion\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "This code module, part of the fenec project, is designed to integrate specific types from the OpenAI library to facilitate chat completion functionalities, thereby enhancing the user experience and efficiency within the fenec library. Its primary purpose is to streamline the implementation of OpenAI's chat-related types, ensuring seamless and standardized interactions with OpenAI's API. The key components of this module include: `ChatCompletionSystemMessageParam`, which handles system-level message parameters necessary for chat completions, ensuring that system messages are correctly formatted and processed; `ChatCompletionUserMessageParam`, which manages user-specific message parameters, allowing for personalized and context-aware interactions; `ChatCompletionMessageParam`, a general parameter handler that standardizes the structure of chat messages, providing a consistent interface for message handling; and `ChatCompletion`, the core class responsible for executing chat completions, orchestrating the interaction between system and user messages to produce coherent chat outputs.\n\nThe implementation involves importing these types directly from the OpenAI library, indicating a strong reliance on OpenAI's predefined structures for chat interactions. This approach leverages the robustness and reliability of OpenAI's types, ensuring that the fenec project can efficiently handle complex chat scenarios without the need to develop custom solutions. The technical stack is centered around the OpenAI library, specifically its types module, which provides structured data types for chat operations. This integration allows the fenec project to utilize OpenAI's advanced natural language processing capabilities, enhancing its chat functionalities.\n\nIn the context of the larger fenec project, this module acts as a bridge, allowing seamless integration of OpenAI's chat capabilities into fenec's ecosystem. It plays a significant role in enhancing the project's functionality and user experience by providing a standardized and efficient way to handle chat interactions. This integration not only simplifies the development process within the fenec project but also ensures that users can leverage the powerful features of OpenAI's chat types, making the fenec library a more versatile and user-friendly tool. By encapsulating and standardizing type definitions from the OpenAI library, this module ensures compatibility with OpenAI's API, providing a reliable foundation for developers working within the fenec ecosystem.",
+    "children_ids": [
+        "fenec:types:openai.py__*__MODULE__*__STANDALONE_CODE_BLOCK-1"
+    ]
+}

@@ -1,0 +1,75 @@
+{
+    "function_name": "chat_loop",
+    "docstring": "Start a chat session with Fenec.",
+    "decorators": [],
+    "parameters": {
+        "params": [],
+        "star_arg": "",
+        "kwonly_params": [],
+        "star_kwarg": "",
+        "posonly_params": []
+    },
+    "returns": "None",
+    "is_method": false,
+    "is_async": false,
+    "id": "fenec:cli_app.py__*__MODULE__*__FUNCTION-chat_loop",
+    "file_path": "fenec/cli_app.py",
+    "parent_id": "fenec:cli_app.py__*__MODULE",
+    "block_type": "FUNCTION",
+    "start_line_num": 44,
+    "end_line_num": 70,
+    "code_content": "\n\ndef chat_loop() -> None:\n    \"\"\"\n    Start a chat session with Fenec.\n    \"\"\"\n    if not fenec_instance:\n        typer.echo(\n            \"Error: Codebase has not been processed. Please process the codebase first.\"\n        )\n        raise typer.Exit(1)\n\n    print(\n        \"[blue]Chat[/blue] session started. Type [magenta]'exit'[/magenta] to end the chat.\"\n    )\n    while True:\n        user_input = typer.prompt(\"You\")\n        if user_input.lower() == \"exit\":\n            break\n        try:\n            response = fenec_instance.chat(user_input)\n            typer.echo(f\"AI: {response}\")\n        except Exception as e:\n            logging.exception(\"Error during chat\")\n            typer.echo(f\"Error during chat: {e}\")\n            break\n",
+    "important_comments": [],
+    "dependencies": [
+        {
+            "import_names": [
+                {
+                    "name": "logging",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "typer",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "Fenec",
+                    "as_name": "",
+                    "local_block_id": "fenec:api.py__*__MODULE__*__CLASS-Fenec"
+                }
+            ],
+            "imported_from": "fenec",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:api.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "print",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "rich",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        }
+    ],
+    "summary": "This code snippet is designed to initiate and manage an interactive chat session with a system named Fenec, serving as a command-line interface for user communication. The primary purpose of the code is to facilitate a continuous dialogue between the user and the Fenec system, allowing users to input commands or queries until they choose to exit the session. Key components include the `chat_loop` function, which is responsible for managing the chat session lifecycle, and the use of the `typer` library for command-line interaction, specifically for prompting user input and handling errors. The implementation involves a simple loop that continuously prompts the user for input using `typer.prompt` and checks for the termination command 'exit' to break the loop. Error handling is implemented using `typer.echo` to display error messages and `typer.Exit` to terminate the program if the Fenec instance is not initialized, ensuring that the chat session only starts if the codebase has been processed. The technical stack primarily includes the `typer` library, which is utilized for building command-line interfaces, providing functionalities like prompting and error messaging. In the context of a larger system, this code acts as a user interface component, likely interacting with a backend system or service represented by the Fenec instance. It assumes the existence of a processed codebase, indicating its role in a broader application where codebase processing is a prerequisite for chat functionality. This snippet fits into a larger project by serving as the user-facing entry point for interacting with the Fenec system, potentially interfacing with other components that handle codebase processing, data retrieval, or response generation, thus playing a crucial role in the user experience and system accessibility.",
+    "children_ids": []
+}

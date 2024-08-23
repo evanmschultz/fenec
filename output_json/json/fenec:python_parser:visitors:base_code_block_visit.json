@@ -1,0 +1,158 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "Union",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "typing",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "libcst",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "WhitespaceInclusivePositionProvider",
+                    "as_name": "",
+                    "local_block_id": ""
+                },
+                {
+                    "name": "CodeRange",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "libcst.metadata",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "_UNDEFINED_DEFAULT",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "libcst._metadata_dependent",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ClassModelBuilder",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:class_model_builder.py__*__MODULE__*__CLASS-ClassModelBuilder"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.class_model_builder",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:class_model_builder.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "FunctionModelBuilder",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:function_model_builder.py__*__MODULE__*__CLASS-FunctionModelBuilder"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.function_model_builder",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:function_model_builder.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ModuleModelBuilder",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:module_model_builder.py__*__MODULE__*__CLASS-ModuleModelBuilder"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.module_model_builder",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:module_model_builder.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "StandaloneBlockModelBuilder",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:standalone_block_model_builder.py__*__MODULE__*__CLASS-StandaloneBlockModelBuilder"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.standalone_block_model_builder",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:standalone_block_model_builder.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "CommentModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-CommentModel"
+                }
+            ],
+            "imported_from": "fenec.models.models",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:models:models.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "fenec.python_parser.visitors.node_processing.common_functions",
+                    "as_name": "common_functions",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:visitors:node_processing:common_functions.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "PositionData",
+                    "as_name": "",
+                    "local_block_id": "fenec:utilities:processing_context.py__*__MODULE__*__CLASS-PositionData"
+                }
+            ],
+            "imported_from": "fenec.utilities.processing_context",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:utilities:processing_context.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:python_parser:visitors:base_code_block_visitor.py__*__MODULE",
+    "file_path": "fenec/python_parser/visitors/base_code_block_visitor.py",
+    "parent_id": "fenec:python_parser:visitors__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 91,
+    "code_content": "from typing import Union\nimport libcst\nfrom libcst.metadata import (\n    WhitespaceInclusivePositionProvider,\n    CodeRange,\n)\nfrom libcst._metadata_dependent import _UNDEFINED_DEFAULT\nfrom fenec.python_parser.model_builders.class_model_builder import ClassModelBuilder\nfrom fenec.python_parser.model_builders.function_model_builder import (\n    FunctionModelBuilder,\n)\nfrom fenec.python_parser.model_builders.module_model_builder import (\n    ModuleModelBuilder,\n)\nfrom fenec.python_parser.model_builders.standalone_block_model_builder import (\n    StandaloneBlockModelBuilder,\n)\n\n# from fenec.types.fenec import BuilderType\nfrom fenec.models.models import CommentModel\nimport fenec.python_parser.visitors.node_processing.common_functions as common_functions\nfrom fenec.utilities.processing_context import PositionData\n\n\nBuilderType = Union[\n    ModuleModelBuilder,\n    ClassModelBuilder,\n    FunctionModelBuilder,\n    StandaloneBlockModelBuilder,\n]\n\n\nclass BaseVisitor(libcst.CSTVisitor):\n    \"\"\"\n    Base visitor class for traversing and processing nodes in a CST (Concrete Syntax Tree).\n\n    This abstract class provides the foundational functionality for processing various nodes in a CST, using the libcst library. It is designed to be extended by more specific visitor classes like ModuleVisitor.\n\n    Attributes:\n        id (str): An identifier for the visitor instance.\n        builder_stack (list[BuilderType]): A stack of model builders for handling different CST nodes.\n\n    METADATA_DEPENDENCIES (tuple): Metadata dependencies required for processing the CST nodes.\n    \"\"\"\n\n    METADATA_DEPENDENCIES: tuple[type[WhitespaceInclusivePositionProvider]] = (\n        WhitespaceInclusivePositionProvider,\n    )\n\n    def __init__(self, id: str) -> None:\n        self.id: str = id\n        self.builder_stack: list[BuilderType] = []\n\n    def visit_Comment(self, node: libcst.Comment) -> None:\n        \"\"\"\n        Visits a Comment node in the CST.\n\n        Extracts important comments from the node and adds them to the current builder in the stack.\n        \"\"\"\n\n        parent_builder = self.builder_stack[-1]\n        content: CommentModel | None = common_functions.extract_important_comment(node)\n        if content:\n            parent_builder.add_important_comment(content)\n\n    def get_node_position_data(\n        self,\n        node: libcst.CSTNode,\n    ) -> PositionData:\n        \"\"\"\n        Retrieves position data for a given CST node.\n\n        Extracts the start and end line numbers of the node in the source code.\n\n        Args:\n            node (libcst.CSTNode): The CST node to get position data for.\n\n        Returns:\n            PositionData: An object containing start and end line numbers of the node.\n        \"\"\"\n\n        position_data: CodeRange | type[_UNDEFINED_DEFAULT] = self.get_metadata(\n            WhitespaceInclusivePositionProvider, node\n        )\n\n        start, end = 0, 0\n        if isinstance(position_data, CodeRange):\n            start: int = position_data.start.line\n            end: int = position_data.end.line\n        return PositionData(start=start, end=end)\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "The provided Python code defines a `BaseVisitor` class, which is an abstract base class designed for traversing and processing nodes within a Concrete Syntax Tree (CST) using the `libcst` library. The primary purpose of this class is to offer foundational functionality for more specialized visitor classes, such as `ModuleVisitor`, by providing essential methods for handling various CST nodes. This class is significant in the context of syntax analysis or code transformation tools, where it facilitates the extraction and processing of syntactic information from source code, aiding in the construction of detailed models representing Python code structures.\n\nKey components of the `BaseVisitor` class include the `__init__` method, which initializes the visitor with a unique identifier and a `builder_stack`, a list of model builders for managing different CST nodes. The `visit_Comment` method processes comment nodes by extracting significant comments using the `common_functions.extract_important_comment` function and adding them to the current builder on the stack, ensuring that important comments are captured for further processing. The `get_node_position_data` method retrieves the start and end line numbers of a given CST node, utilizing the `WhitespaceInclusivePositionProvider` to obtain position metadata, which is crucial for accurately mapping nodes to their positions in the source code.\n\nThe implementation leverages a stack data structure to manage builders, allowing for a flexible and extensible design pattern that supports modularity. The use of the `WhitespaceInclusivePositionProvider` for obtaining node position data highlights the code's reliance on metadata to enhance its processing capabilities. The design pattern employed here is indicative of a visitor pattern, which is commonly used in syntax tree traversal to separate algorithms from the objects on which they operate.\n\nThe technical stack includes the `libcst` library, which is used for CST manipulation, providing a robust framework for parsing and transforming Python code. The `fenec` package is utilized for model building and utility functions, with specific modules such as `ClassModelBuilder`, `FunctionModelBuilder`, `ModuleModelBuilder`, and `StandaloneBlockModelBuilder` being used to handle different CST nodes. The `WhitespaceInclusivePositionProvider` from `libcst.metadata` is employed to extract positional data, while the `common_functions` module from `fenec.python_parser.visitors.node_processing` is used to process comments.\n\nIn the context of a larger system, this code serves as a core utility for parsing and analyzing Python code, interacting with other components like model builders and processing contexts to facilitate the construction of detailed code models. These models can be used for further analysis or transformation tasks, making this code a critical component in a Python code analysis and transformation pipeline. The `BaseVisitor` class, through its extensible design, allows for easy integration and expansion, supporting a wide range of programming constructs and enabling the system to adapt to evolving requirements. This makes it a versatile tool in the development and analysis of complex software systems, providing a common interface for different model builders and promoting modularity and extensibility in the system's architecture.",
+    "children_ids": [
+        "fenec:python_parser:visitors:base_code_block_visitor.py__*__MODULE__*__STANDALONE_CODE_BLOCK-1",
+        "fenec:python_parser:visitors:base_code_block_visitor.py__*__MODULE__*__CLASS-BaseVisitor"
+    ]
+}

@@ -1,0 +1,158 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "TYPE_CHECKING",
+                    "as_name": "",
+                    "local_block_id": ""
+                },
+                {
+                    "name": "Union",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "typing",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "libcst",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "MetadataWrapper",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "libcst.metadata",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ModuleIDGenerationStrategy",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:id_generation:id_generation_strategies.py__*__MODULE__*__CLASS-ModuleIDGenerationStrategy"
+                }
+            ],
+            "imported_from": "fenec.python_parser.id_generation.id_generation_strategies",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:id_generation:id_generation_strategies.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "BuilderFactory",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:builder_factory.py__*__MODULE__*__CLASS-BuilderFactory"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.builder_factory",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:builder_factory.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ModuleModelBuilder",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:module_model_builder.py__*__MODULE__*__CLASS-ModuleModelBuilder"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.module_model_builder",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:module_model_builder.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ModuleVisitor",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:visitors:module_visitor.py__*__MODULE__*__CLASS-ModuleVisitor"
+                }
+            ],
+            "imported_from": "fenec.python_parser.visitors.module_visitor",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:visitors:module_visitor.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "BlockType",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:enums.py__*__MODULE__*__CLASS-BlockType"
+                }
+            ],
+            "imported_from": "fenec.models.enums",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:models:enums.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ClassModelBuilder",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:class_model_builder.py__*__MODULE__*__CLASS-ClassModelBuilder"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.class_model_builder",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:class_model_builder.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "FunctionModelBuilder",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:function_model_builder.py__*__MODULE__*__CLASS-FunctionModelBuilder"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.function_model_builder",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:function_model_builder.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "StandaloneBlockModelBuilder",
+                    "as_name": "",
+                    "local_block_id": "fenec:python_parser:model_builders:standalone_block_model_builder.py__*__MODULE__*__CLASS-StandaloneBlockModelBuilder"
+                }
+            ],
+            "imported_from": "fenec.python_parser.model_builders.standalone_block_model_builder",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:python_parser:model_builders:standalone_block_model_builder.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:python_parser:parsers:python_parser.py__*__MODULE",
+    "file_path": "fenec/python_parser/parsers/python_parser.py",
+    "parent_id": "fenec:python_parser:parsers__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 115,
+    "code_content": "from typing import TYPE_CHECKING, Union\nimport libcst\nfrom libcst.metadata import MetadataWrapper\nfrom fenec.python_parser.id_generation.id_generation_strategies import (\n    ModuleIDGenerationStrategy,\n)\nfrom fenec.python_parser.model_builders.builder_factory import BuilderFactory\nfrom fenec.python_parser.model_builders.module_model_builder import (\n    ModuleModelBuilder,\n)\n\nfrom fenec.python_parser.visitors.module_visitor import ModuleVisitor\nfrom fenec.models.enums import BlockType\n\nfrom fenec.python_parser.model_builders.class_model_builder import (\n    ClassModelBuilder,\n)\nfrom fenec.python_parser.model_builders.function_model_builder import (\n    FunctionModelBuilder,\n)\nfrom fenec.python_parser.model_builders.standalone_block_model_builder import (\n    StandaloneBlockModelBuilder,\n)\n\n\nBuilderType = Union[\n    ModuleModelBuilder,\n    ClassModelBuilder,\n    FunctionModelBuilder,\n    StandaloneBlockModelBuilder,\n]\n\n\nclass PythonParser:\n    \"\"\"\n    A parser for Python source code, using libcst to parse and construct a module model.\n\n    This class takes the path to a Python file, reads its contents, and parses it into a structured\n    module model using the libcst library. It is designed to work with a specific file at a time.\n\n    Attributes:\n        - file_path (str): The path to the Python file to be parsed.\n\n    Example:\n        ```Python\n        python_parser = PythonParser(\"/path/to/python/file.py\")\n        code = python_parser.open_file()\n        module_model = python_parser.parse(code, parent_id=\"parent_module_id\")\n        # Parses the provided code and returns a structured module model.\n        ```\n    \"\"\"\n\n    def __init__(self, file_path: str) -> None:\n        self.file_path: str = file_path\n\n    def open_file(self) -> str:\n        \"\"\"\n        Opens and reads the contents of the Python file specified in the file_path attribute.\n\n        Returns:\n            - str: The contents of the file as a string.\n\n        Example:\n            ```Python\n            python_parser = PythonParser(\"/path/to/python/file.py\")\n            code = python_parser.open_file()\n            # Reads and returns the contents of the Python file.\n            ```\n        \"\"\"\n\n        with open(self.file_path, \"r\") as file:\n            return file.read()\n\n    def parse(self, code: str, parent_id: str) -> ModuleModelBuilder | None:\n        \"\"\"\n        Parses the provided Python code into a structured module model.\n\n        Uses libcst to parse the provided code using the ModuleVisitor class. A ModuleModelBuilder instance is returned\n        along with its hierarchy of child builders.\n\n        Args:\n            - code (str): The Python code to be parsed.\n            - parent_id (str): The ID of the parent module or block.\n\n        Returns:\n            - ModuleModelBuilder | None: The module model builder for the provided code.\n\n        Example:\n            ```Python\n            python_parser = PythonParser(\"/path/to/python/file.py\")\n            code = python_parser.open_file()\n            module_model = python_parser.parse(code, parent_id=\"parent_module_id\")\n            # Parses the provided code and returns a module model builder.\n            ```\n        \"\"\"\n\n        wrapper = MetadataWrapper(libcst.parse_module(code))\n        module_id: str = ModuleIDGenerationStrategy.generate_id(\n            file_path=self.file_path\n        )\n        module_builder: ModuleModelBuilder = BuilderFactory.create_builder_instance(\n            block_type=BlockType.MODULE,\n            id=module_id,\n            file_path=self.file_path,\n            parent_id=parent_id,\n        )\n        visitor = ModuleVisitor(id=module_id, module_builder=module_builder)\n        wrapper.visit(visitor)\n\n        return (\n            visitor.builder_stack[0]\n            if isinstance(visitor.builder_stack[0], ModuleModelBuilder)\n            else None\n        )\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "The provided code defines a `PythonParser` class, which is integral to parsing Python source code files into structured module models, utilizing the `libcst` library. The primary purpose of this class is to facilitate the analysis and transformation of Python code by converting it into a structured format that can be programmatically manipulated. This is essential for tasks such as code refactoring, static analysis, or documentation generation. Key components of the `PythonParser` class include the `__init__` method, which initializes the parser with a specified file path; the `open_file` method, which reads the contents of the Python file; and the `parse` method, which uses `libcst` to parse the code into a module model, returning a `ModuleModelBuilder` instance. The `parse` method is particularly significant as it employs a `MetadataWrapper` to enhance the parsing process with additional metadata, uses a `ModuleIDGenerationStrategy` to generate unique identifiers for modules, and leverages a `BuilderFactory` to create a `ModuleModelBuilder` instance. The `ModuleVisitor` class is then used to traverse the abstract syntax tree (AST), constructing a hierarchy of module models through a visitor pattern, which systematically visits each node in the AST to build the corresponding module model.\n\nThe technical stack includes the `libcst` library, which is crucial for parsing and constructing the module model, allowing for both parsing and code modification. The `fenec` package provides custom modules for model building and ID generation, which are essential for constructing the module models. This package likely includes additional components for handling different aspects of code analysis and transformation, such as `ModuleModelBuilder`, `BuilderFactory`, and `ModuleVisitor`. The `MetadataWrapper` and `ModuleIDGenerationStrategy` are also integral, providing metadata and unique identification capabilities, respectively.\n\nIn the context of a larger system, this code serves as a foundational component for a Python code analysis tool. It interfaces with other components that may perform code transformations, static analysis, or code generation tasks. Its modular design allows it to be integrated into systems requiring detailed code structure analysis and manipulation. The parser's ability to generate structured models of Python code makes it a valuable asset in environments where understanding and modifying code programmatically is essential, such as integrated development environments (IDEs), automated refactoring tools, or code quality analysis platforms. The use of a type alias `BuilderType` further enhances the system's flexibility and maintainability by allowing functions or methods to accept any of the specified builder instances, supporting dynamic construction or manipulation of code models. This setup supports a modular and scalable architecture, allowing for seamless integration and extension of new builder types as the system evolves, ensuring flexibility and adaptability in the codebase.",
+    "children_ids": [
+        "fenec:python_parser:parsers:python_parser.py__*__MODULE__*__STANDALONE_CODE_BLOCK-1",
+        "fenec:python_parser:parsers:python_parser.py__*__MODULE__*__CLASS-PythonParser"
+    ]
+}

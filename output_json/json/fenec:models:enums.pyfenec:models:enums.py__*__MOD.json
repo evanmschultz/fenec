@@ -1,0 +1,34 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "Enum",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "enum",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        }
+    ],
+    "id": "fenec:models:enums.py__*__MODULE",
+    "file_path": "fenec/models/enums.py",
+    "parent_id": "fenec:models__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 47,
+    "code_content": "from enum import Enum\n\n\nclass ImportModuleType(str, Enum):\n    \"\"\"Enum of import module types.\"\"\"\n\n    STANDARD_LIBRARY = \"STANDARD_LIBRARY\"\n    LOCAL = \"LOCAL\"\n    THIRD_PARTY = \"THIRD_PARTY\"\n\n    def __str__(self) -> str:\n        return self.value\n\n\nclass CommentType(str, Enum):\n    \"\"\"Enum representing the different types of important comments.\"\"\"\n\n    TODO = \"TODO\"\n    FIXME = \"FIXME\"\n    NOTE = \"NOTE\"\n    HACK = \"HACK\"\n    XXX = \"XXX\"\n    REVIEW = \"REVIEW\"\n    OPTIMIZE = \"OPTIMIZE\"\n    CHANGED = \"CHANGED\"\n    QUESTION = \"QUESTION\"\n    Q = \"Q\"\n    DEPRECATED = \"@deprecated\"\n    NOSONAR = \"NOSONAR\"\n    TODO_FIXME = \"TODO-FIXME\"\n\n    def __str__(self) -> str:\n        return self.value\n\n\nclass BlockType(str, Enum):\n    \"\"\"Enum of code block types.\"\"\"\n\n    STANDALONE_CODE_BLOCK = \"STANDALONE_CODE_BLOCK\"\n    CLASS = \"CLASS\"\n    FUNCTION = \"FUNCTION\"\n    MODULE = \"MODULE\"\n    DIRECTORY = \"DIRECTORY\"\n\n    def __str__(self) -> str:\n        return self.value\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "This code defines a set of enumeration classes designed to systematically categorize various elements within a Python project, enhancing the organization and readability of code analysis or documentation tools. The primary purpose of this code is to provide a structured framework for identifying and managing different types of modules, comments, and code blocks, which is crucial for maintaining code quality and facilitating automated tools in software development environments. Key components include: `ImportModuleType`, an enumeration class that categorizes import statements into `STANDARD_LIBRARY`, `LOCAL`, and `THIRD_PARTY`, aiding in the organization of dependencies and import management; `CommentType`, which classifies significant comments such as `TODO`, `FIXME`, `NOTE`, and others, enabling efficient tracking and management of code annotations and developer notes; `BlockType`, which identifies different code block types like `STANDALONE_CODE_BLOCK`, `CLASS`, `FUNCTION`, `MODULE`, and `DIRECTORY`, supporting code organization and parsing.\n\nThe implementation leverages Python's `Enum` class, which is part of the standard library, to create these enumerations. Each enumeration class inherits from both `str` and `Enum`, allowing the enumeration values to behave like strings while retaining the benefits of enumeration, such as type safety and easy comparison. The `__str__` method is overridden in each class to return the enumeration's value, facilitating its use in string contexts and ensuring seamless integration with other string-based operations. This design pattern ensures that the enumerations are both human-readable and machine-friendly, which is particularly useful for serialization and logging purposes.\n\nThe technical stack is minimal, relying solely on Python's built-in `enum` module. This choice ensures that the code is lightweight, with no external dependencies, and is easily integrable into any Python codebase. The use of the `enum` module provides a robust framework for creating enumerations, ensuring compatibility and ease of use across different Python environments.\n\nIn the context of a larger system, this code could be part of a comprehensive code analysis tool or a development environment plugin that requires the categorization of code elements for tasks such as static analysis, code review automation, or documentation generation. It interacts with other components by providing a standardized way to reference and manipulate different code elements, potentially interfacing with parsers, linters, or IDE extensions. This integration enhances code quality and developer productivity by enabling automated tools to efficiently process and analyze code structures and annotations, thereby supporting a wide range of software development and maintenance activities.",
+    "children_ids": [
+        "fenec:models:enums.py__*__MODULE__*__CLASS-ImportModuleType",
+        "fenec:models:enums.py__*__MODULE__*__CLASS-CommentType",
+        "fenec:models:enums.py__*__MODULE__*__CLASS-BlockType"
+    ]
+}

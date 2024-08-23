@@ -1,0 +1,73 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "OllamaSummarizer",
+                    "as_name": "",
+                    "local_block_id": "fenec:ai_services:summarizer:ollama_summarizer.py__*__MODULE__*__CLASS-OllamaSummarizer"
+                }
+            ],
+            "imported_from": "fenec.ai_services.summarizer.ollama_summarizer",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:ai_services:summarizer:ollama_summarizer.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "OpenAISummarizer",
+                    "as_name": "",
+                    "local_block_id": "fenec:ai_services:summarizer:openai_summarizer.py__*__MODULE__*__CLASS-OpenAISummarizer"
+                }
+            ],
+            "imported_from": "fenec.ai_services.summarizer.openai_summarizer",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:ai_services:summarizer:openai_summarizer.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "Summarizer",
+                    "as_name": "",
+                    "local_block_id": "fenec:ai_services:summarizer:summarizer_protocol.py__*__MODULE__*__CLASS-Summarizer"
+                }
+            ],
+            "imported_from": "fenec.ai_services.summarizer.summarizer_protocol",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:ai_services:summarizer:summarizer_protocol.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "OpenAISummarizationConfigs",
+                    "as_name": "",
+                    "local_block_id": "fenec:configs:configs.py__*__MODULE__*__CLASS-OpenAISummarizationConfigs"
+                },
+                {
+                    "name": "OllamaSummarizationConfigs",
+                    "as_name": "",
+                    "local_block_id": "fenec:configs:configs.py__*__MODULE__*__CLASS-OllamaSummarizationConfigs"
+                }
+            ],
+            "imported_from": "fenec.configs",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:configs:configs.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:ai_services:summarizer:summarizer_factory.py__*__MODULE",
+    "file_path": "fenec/ai_services/summarizer/summarizer_factory.py",
+    "parent_id": "fenec:ai_services:summarizer__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 28,
+    "code_content": "from fenec.ai_services.summarizer.ollama_summarizer import OllamaSummarizer\nfrom fenec.ai_services.summarizer.openai_summarizer import OpenAISummarizer\nfrom fenec.ai_services.summarizer.summarizer_protocol import Summarizer\nfrom fenec.configs import (\n    OpenAISummarizationConfigs,\n    OllamaSummarizationConfigs,\n)\n\n\ndef create_summarizer(\n    configs: OpenAISummarizationConfigs | OllamaSummarizationConfigs,\n) -> Summarizer:\n    \"\"\"\n    Create a summarizer based on the provided configs.\n\n    Args:\n        - `configs` (OpenAISummarizationConfigs | OllamaSummarizationConfigs): The summarization configs.\n\n    Returns:\n        Summarizer: The summarizer instance.\n    \"\"\"\n    if isinstance(configs, OpenAISummarizationConfigs):\n        return OpenAISummarizer(configs)\n    elif isinstance(configs, OllamaSummarizationConfigs):\n        return OllamaSummarizer(configs)\n    else:\n        raise ValueError(\"Invalid summarization configs provided.\")\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "This code is designed to dynamically instantiate a summarizer object based on the provided configuration, facilitating the selection between different summarization services. Its main purpose is to abstract the complexity of service-specific implementations, allowing for seamless integration of summarization capabilities into larger systems. The key components include the `create_summarizer` function, which acts as a factory method for generating summarizer instances; the `OpenAISummarizer` and `OllamaSummarizer` classes, which implement the summarization logic tailored to their respective services; and the configuration classes `OpenAISummarizationConfigs` and `OllamaSummarizationConfigs`, which encapsulate the necessary settings for each summarization service. The implementation employs a simple factory pattern, utilizing Python's `isinstance` function for type checking to determine the appropriate summarizer class to instantiate based on the configuration type. This design ensures flexibility and extensibility, allowing for easy integration of additional summarization services in the future. The technical stack includes custom modules from the `fenec` package, specifically `fenec.ai_services.summarizer` for summarizer implementations and `fenec.configs` for configuration management. These modules are likely part of a larger framework that provides AI services and configuration handling. In the context of a larger system, this code functions as a middleware component that abstracts the complexity of choosing and configuring summarization services, enabling other parts of the system to request summarization functionality without needing to manage service-specific details. This modular approach supports scalability and ease of maintenance in systems requiring text summarization capabilities, allowing for seamless integration with other components such as user interfaces, data processing pipelines, or API endpoints that require summarized content.",
+    "children_ids": [
+        "fenec:ai_services:summarizer:summarizer_factory.py__*__MODULE__*__FUNCTION-create_summarizer"
+    ]
+}

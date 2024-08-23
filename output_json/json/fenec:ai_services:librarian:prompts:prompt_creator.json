@@ -1,0 +1,32 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "fenec.ai_services.librarian.prompts.chroma_librarian_prompts",
+                    "as_name": "prompts",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:ai_services:librarian:prompts:chroma_librarian_prompts.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:ai_services:librarian:prompts:prompt_creator.py__*__MODULE",
+    "file_path": "fenec/ai_services/librarian/prompts/prompt_creator.py",
+    "parent_id": "fenec:ai_services:librarian:prompts__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 44,
+    "code_content": "import fenec.ai_services.librarian.prompts.chroma_librarian_prompts as prompts\n\n\nclass ChromaLibrarianPromptCreator:\n    \"\"\"\n    Class for creating prompts for the Chroma Librarian.\n\n    Methods:\n        - `create_prompt`: Static method that creates a prompt for the Chroma Librarian.\n\n    Examples:\n        ```Python\n        # Create a prompt\n        prompt: str | None = ChromaLibrarianPromptCreator.create_prompt(\n            user_question,\n            prompt_template,\n            queries_count,\n        )\n        ```\n    \"\"\"\n\n    @staticmethod\n    def create_prompt(\n        user_question: str,\n        prompt_template: str = prompts.DEFAULT_CHROMA_LIBRARIAN_PROMPT,\n        queries_count: int = 3,\n    ) -> str:\n        \"\"\"\n        Creates a prompt for the Chroma Librarian by interpolating the given prompt template with the given user question and queries count.\n\n        Args:\n            - user_question (str): The user's question.\n            - prompt_template (str): The template to interpolate.\n                - default: DEFAULT_CHROMA_LIBRARIAN_PROMPT defined in `chroma_librarian_prompts.py`.\n            - queries_count (int): The number of queries to make.\n                - default: 3\n        \"\"\"\n\n        return prompt_template.format(\n            user_question=user_question,\n            prompt_template=prompt_template,\n            queries_count=queries_count,\n        )\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "The `ChromaLibrarianPromptCreator` class is a utility designed to generate dynamic prompts for the Chroma Librarian, a component likely involved in AI-driven information retrieval or user interaction management within a larger system. Its primary purpose is to facilitate the creation of contextually relevant prompts by interpolating user input and predefined templates, thereby enhancing the interaction with the Chroma Librarian. The class encapsulates this functionality through a single static method, `create_prompt`, which constructs prompts by formatting a template with user-specific data, such as the user's question and the number of queries to be executed. This method utilizes Python's string formatting capabilities to replace placeholders in a template with actual values, ensuring that the prompt generation is both flexible and reusable.\n\nThe implementation follows a straightforward design pattern where the prompt template is managed separately, allowing for easy updates and maintenance. The `create_prompt` method defaults to using a template defined in the `fenec.ai_services.librarian.prompts.chroma_librarian_prompts` module, specifically the `DEFAULT_CHROMA_LIBRARIAN_PROMPT`, indicating a modular approach to managing prompt templates. This modularity supports scalability and adaptability, as new templates can be introduced without altering the core logic of the prompt creation process. The method accepts three parameters: `user_question`, a string representing the user's query; `prompt_template`, a string template with a default value sourced from `chroma_librarian_prompts.py`; and `queries_count`, an integer defaulting to 3, indicating the number of queries to be included in the prompt.\n\nThe technical stack primarily involves Python, leveraging its built-in string formatting features to achieve dynamic prompt generation. The code imports the `fenec.ai_services.librarian.prompts.chroma_librarian_prompts` module, which provides the default prompt template, highlighting a separation of concerns where the template management is decoupled from the prompt creation logic.\n\nIn the context of a larger AI or information retrieval framework, this code likely serves as a utility that interacts with other components handling user queries and data processing. Its role is to streamline the creation of prompts that guide the Chroma Librarian's operations, ensuring consistent and contextually relevant interactions. By providing a standardized method for prompt generation, it enhances the system's ability to respond to user queries effectively, potentially interfacing with other AI services or modules that require dynamic input generation. This utility is crucial for maintaining a coherent and user-friendly interaction model within the larger framework, contributing to the overall efficiency and effectiveness of the Chroma Librarian's operations.",
+    "children_ids": [
+        "fenec:ai_services:librarian:prompts:prompt_creator.py__*__MODULE__*__CLASS-ChromaLibrarianPromptCreator"
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "Protocol",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "typing",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "OpenAIReturnContext",
+                    "as_name": "",
+                    "local_block_id": "fenec:configs:configs.py__*__MODULE__*__CLASS-OpenAIReturnContext"
+                }
+            ],
+            "imported_from": "fenec.configs",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:configs:configs.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:ai_services:summarizer:summarizer_protocol.py__*__MODULE",
+    "file_path": "fenec/ai_services/summarizer/summarizer_protocol.py",
+    "parent_id": "fenec:ai_services:summarizer__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 64,
+    "code_content": "from typing import Protocol\nfrom fenec.configs import OpenAIReturnContext\n\n\nclass Summarizer(Protocol):\n    \"\"\"A protocol for summary classes.\"\"\"\n\n    def summarize_code(\n        self,\n        code: str,\n        *,\n        model_id: str,\n        children_summaries: str | None,\n        dependency_summaries: str | None,\n        import_details: str | None,\n        parent_summary: str | None = None,\n        pass_number: int = 1,\n        previous_summary: str | None = None,\n    ) -> OpenAIReturnContext | str | None:\n        \"\"\"\n        Summarizes the provided code snippet.\n\n        Args:\n            - `code` (str): The code snippet to summarize.\n            - `model_id` (str): The identifier of the model_id being summarized.\n            - `children_summaries` (str | None): Summaries of child elements, if any.\n            - `dependency_summaries` (str | None): Summaries of dependencies, if any.\n            - `import_details` (str | None): Details of imports used in the code.\n            - `parent_summary` (str | None): Summary of the parent element, if applicable.\n            - `pass_number` (int): The current pass number in multi-pass summarization. Default is 1.\n\n        Returns:\n            OpenAIReturnContext | str | None: The summary context, or None if summarization fails.\n        \"\"\"\n        ...\n\n    def test_summarize_code(\n        self,\n        code: str,\n        *,\n        model_id: str,\n        children_summaries: str | None,\n        dependency_summaries: str | None,\n        import_details: str | None,\n        parent_summary: str | None = None,\n        pass_number: int = 1,\n    ) -> OpenAIReturnContext | None:\n        \"\"\"\n        A method for testing the summarize_code functionality without making API calls.\n\n        Args:\n            - code (str): The code snippet to summarize (not used in the test method).\n            - model_id (str): The identifier of the model_id being summarized.\n            - children_summaries (str | None): Summaries of child elements, if any.\n            - dependency_summaries (str | None): Summaries of dependencies, if any.\n            - import_details (str | None): Details of imports used in the code.\n            - parent_summary (str | None): Summary of the parent element, if applicable.\n            - pass_number (int): The current pass number in multi-pass summarization. Default is 1.\n\n        Returns:\n            `OpenAIReturnContext | None`: A context object containing a test summary and token usage information.\n        \"\"\"\n        ...\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "This code defines a protocol for a summarization system, serving as a structured interface for generating detailed summaries of code snippets within a larger code analysis or documentation generation framework. Its primary purpose is to standardize the process of creating structured summaries by providing a flexible and consistent interface that can be implemented by various summarization strategies. This is particularly significant in automated systems for code analysis and documentation, as it allows for the seamless integration of different summarization models and techniques, enhancing the system's ability to produce meaningful and context-aware summaries.\n\nKey components of the code include the `Summarizer` protocol, which specifies two essential methods: `summarize_code` and `test_summarize_code`. The `summarize_code` method is designed to generate a comprehensive summary for a given code snippet, utilizing various contextual inputs such as model identifiers, summaries of child and dependency elements, import details, and parent summaries. It supports multi-pass summarization through the `pass_number` parameter, allowing for iterative refinement of summaries. The method returns an `OpenAIReturnContext`, a string, or `None` if summarization fails, providing flexibility in how summaries are represented. The `test_summarize_code` method serves as a testing utility, enabling validation of the summarization functionality without making actual API calls. It returns a context object containing a test summary and token usage information, which is crucial for debugging and performance evaluation.\n\nThe implementation employs a protocol-based design pattern, leveraging Python's `Protocol` class from the `typing` module. This design pattern ensures that any class implementing the `Summarizer` protocol must provide concrete implementations of the specified methods, promoting consistency and reusability across different summarization modules. The protocol-based approach allows for interchangeable summarization strategies, making it adaptable to various use cases and models. The code does not specify the internal logic of the summarization process, leaving it abstract for concrete implementations to define, which encourages extensibility and customization.\n\nThe technical stack is minimal, primarily relying on Python's `typing` module for defining the protocol. Additionally, it utilizes a custom `OpenAIReturnContext` from the `fenec.configs` module, which likely encapsulates the result of the summarization process, providing a standardized format for returning summary data and associated metadata. This design choice allows for flexibility in integrating with different AI models or summarization tools, depending on the needs of the larger system.\n\nIn the context of a larger project, this code serves as a foundational component for code summarization services, potentially interacting with AI models and other components that provide or consume code summaries. It is designed to be extended by other classes that implement the summarization logic, making it a versatile part of a code analysis or documentation generation system. This protocol can be integrated into a broader ecosystem that includes AI-driven code analysis tools, documentation generators, and developer assistance platforms, enhancing the overall capability to generate meaningful and context-aware code summaries.",
+    "children_ids": [
+        "fenec:ai_services:summarizer:summarizer_protocol.py__*__MODULE__*__CLASS-Summarizer"
+    ]
+}

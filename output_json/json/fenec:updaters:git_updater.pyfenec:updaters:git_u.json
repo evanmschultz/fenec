@@ -1,0 +1,33 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "subprocess",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        }
+    ],
+    "id": "fenec:updaters:git_updater.py__*__MODULE",
+    "file_path": "fenec/updaters/git_updater.py",
+    "parent_id": "fenec:updaters__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 38,
+    "code_content": "import subprocess\n\n\ndef get_changed_files_since_last_update(last_commit_hash: str) -> list[str]:\n    \"\"\"\n    Returns a list of Python files that have been changed since the last update.\n\n    Args:\n        `last_commit_hash` (str): The commit hash of the last update.\n\n    Returns:\n        `list[str]`: A list of changed Python file paths.\n    \"\"\"\n    git_command = f\"git diff --name-only {last_commit_hash} HEAD\"\n\n    result = subprocess.run(git_command, shell=True, capture_output=True, text=True)\n    if result.returncode != 0:\n        raise Exception(f\"Git command failed: {result.stderr}\")\n\n    changed_files = result.stdout.strip().split(\"\\n\")\n    return [file for file in changed_files if file.endswith(\".py\")]\n\n\ndef get_current_commit_hash() -> str:\n    \"\"\"\n    Retrieves the current commit hash.\n\n    Returns:\n        `str`: The current commit hash.\n    \"\"\"\n    git_command = \"git rev-parse HEAD\"\n\n    result = subprocess.run(git_command, shell=True, capture_output=True, text=True)\n    if result.returncode != 0:\n        raise Exception(f\"Git command failed: {result.stderr}\")\n\n    return result.stdout.strip()\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "This code provides a utility for identifying Python files that have been modified since a specified commit in a Git repository, serving as a crucial component for tasks such as code review, testing, or deployment. The primary function, `get_changed_files_since_last_update`, takes a `last_commit_hash` as an argument and returns a list of paths to Python files that have been altered since that commit. It utilizes the `subprocess` module to execute a Git command, capturing the output to determine which files have changed. The output is processed to filter only those files with a `.py` extension, ensuring the focus remains on Python scripts. Another function, `get_current_commit_hash`, retrieves the current commit hash, facilitating the tracking of changes from the latest commit point.\n\nThe implementation leverages Python's `subprocess` module to run shell commands, capturing their output for further processing. The `subprocess.run` method is employed with parameters such as `shell=True`, `capture_output=True`, and `text=True` to execute the Git commands and handle their output efficiently. This approach allows the code to interface directly with the Git command-line tool, providing a seamless integration with version control systems. The technical stack is minimal, relying solely on Python's standard library, specifically the `subprocess` module, which is well-suited for executing and managing system-level commands.\n\nIn the context of a larger system, this code could be part of a continuous integration (CI) pipeline or a development tool that tracks changes in a codebase. By identifying modified files and ensuring the system is up-to-date with the latest code changes, it enables automated testing or deployment processes. This functionality is critical in environments where maintaining code quality and consistency is essential, as it allows developers to focus on code improvements while the system handles version control tasks. Additionally, this code can be integrated into pre-commit hooks or other automation scripts to streamline development workflows and enhance productivity. By focusing on Python files, it ensures that only relevant changes are flagged for further action, optimizing the workflow in environments where Python is a primary language. This utility could be extended or adapted to fit into more complex systems, potentially interfacing with other components that manage build processes, automated testing, or deployment strategies.",
+    "children_ids": [
+        "fenec:updaters:git_updater.py__*__MODULE__*__FUNCTION-get_changed_files_since_last_update",
+        "fenec:updaters:git_updater.py__*__MODULE__*__FUNCTION-get_current_commit_hash"
+    ]
+}

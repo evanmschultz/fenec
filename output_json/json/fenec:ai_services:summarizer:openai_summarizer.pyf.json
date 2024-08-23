@@ -1,0 +1,121 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "logging",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "OpenAI",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "openai",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ChatCompletionSystemMessageParam",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "openai.types.chat.chat_completion_system_message_param",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ChatCompletionUserMessageParam",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "openai.types.chat.chat_completion_user_message_param",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ChatCompletionMessageParam",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "openai.types.chat.chat_completion_message_param",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ChatCompletion",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "openai.types.chat.chat_completion",
+            "import_module_type": "THIRD_PARTY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "SummarizationPromptCreator",
+                    "as_name": "",
+                    "local_block_id": "fenec:ai_services:summarizer:prompts:prompt_creator.py__*__MODULE__*__CLASS-SummarizationPromptCreator"
+                }
+            ],
+            "imported_from": "fenec.ai_services.summarizer.prompts.prompt_creator",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:ai_services:summarizer:prompts:prompt_creator.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "OpenAISummarizationConfigs",
+                    "as_name": "",
+                    "local_block_id": "fenec:configs:configs.py__*__MODULE__*__CLASS-OpenAISummarizationConfigs"
+                },
+                {
+                    "name": "OpenAIReturnContext",
+                    "as_name": "",
+                    "local_block_id": "fenec:configs:configs.py__*__MODULE__*__CLASS-OpenAIReturnContext"
+                }
+            ],
+            "imported_from": "fenec.configs",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:configs:configs.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:ai_services:summarizer:openai_summarizer.py__*__MODULE",
+    "file_path": "fenec/ai_services/summarizer/openai_summarizer.py",
+    "parent_id": "fenec:ai_services:summarizer__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 309,
+    "code_content": "import logging\n\nfrom openai import OpenAI\nfrom openai.types.chat.chat_completion_system_message_param import (\n    ChatCompletionSystemMessageParam,\n)\nfrom openai.types.chat.chat_completion_user_message_param import (\n    ChatCompletionUserMessageParam,\n)\nfrom openai.types.chat.chat_completion_message_param import ChatCompletionMessageParam\nfrom openai.types.chat.chat_completion import ChatCompletion\n\nfrom fenec.ai_services.summarizer.prompts.prompt_creator import (\n    SummarizationPromptCreator,\n)\nfrom fenec.configs import (\n    OpenAISummarizationConfigs,\n    OpenAIReturnContext,\n)\n\n\nclass OpenAISummarizer:\n    \"\"\"\n    A class for summarizing code snippets using the OpenAI API.\n\n    This class provides functionality to generate summaries of code snippets using OpenAI's language models.\n    It supports multi-pass summarization, allowing for more comprehensive and context-aware summaries.\n\n    Args:\n        - `configs` (OpenAISummarizationConfigs, optional): Configuration settings for the OpenAI summarizer.\n\n    Attributes:\n        - client (OpenAI): The OpenAI client instance.\n        - configs (OpenAISummarizationConfigs): Configuration settings for the summarizer.\n\n    Methods:\n        - summarize_code: Summarizes the provided code snippet using the OpenAI API.\n        - test_summarize_code: A method for testing the summarization functionality.\n\n    Example:\n        ```Python\n        summarizer = OpenAISummarizer()\n        summary = summarizer.summarize_code(\n            code=\"def hello_world():\\n    print('Hello, world!')\",\n            model_id=\"function_1\",\n            children_summaries=\"No child functions.\",\n            dependency_summaries=\"No dependencies.\",\n            import_details=\"No imports.\",\n            parent_summary=\"Module containing greeting functions.\",\n            pass_number=1\n        )\n        print(summary.summary if summary else \"Summarization failed\")\n        ```\n    \"\"\"\n\n    def __init__(\n        self,\n        configs: OpenAISummarizationConfigs = OpenAISummarizationConfigs(),\n    ) -> None:\n        self.client: OpenAI = OpenAI()\n        self.configs: OpenAISummarizationConfigs = configs\n\n    def _create_system_message(self, content: str) -> ChatCompletionSystemMessageParam:\n        \"\"\"Creates a system message for chat completion using OpenAi's ChatCompletionSystemMessageParam class.\"\"\"\n        return ChatCompletionSystemMessageParam(content=content, role=\"system\")\n\n    def _create_user_message(self, content: str) -> ChatCompletionUserMessageParam:\n        \"\"\"Creates a user message for chat completion using OpenAi's ChatCompletionUserMessageParam class.\"\"\"\n        return ChatCompletionUserMessageParam(content=content, role=\"user\")\n\n    def _create_messages_list(\n        self,\n        system_message: str,\n        user_message: str,\n    ) -> list[ChatCompletionMessageParam]:\n        \"\"\"\n        Creates a list of messages for chat completion, including both system and user messages.\n\n        Args:\n            - system_message (str): The system message content.\n            - user_message (str): The user message content.\n\n        Returns:\n            - list[ChatCompletionMessageParam]: A list containing the system and user messages as OpenAI's\n                ChatCompletionMessageParam classes.\n        \"\"\"\n\n        return [\n            self._create_system_message(system_message),\n            self._create_user_message(user_message),\n        ]\n\n    def _create_prompt(\n        self,\n        code: str,\n        children_summaries: str | None,\n        dependency_summaries: str | None,\n        import_details: str | None,\n        parent_summary: str | None,\n        pass_number: int,\n        previous_summary: str | None,\n    ) -> str:\n        \"\"\"\n        Creates a prompt for code summarization.\n\n        Args:\n            - code (str): The code to summarize.\n            - children_summaries (str | None): Summaries of child elements.\n            - dependency_summaries (str | None): Summaries of dependencies.\n            - import_details (str | None): Details of imports.\n            - parent_summary (str | None): Summary of the parent element.\n            - pass_number (int): The current pass number in multi-pass summarization.\n            - previous_summary (str | None): The summary from the previous pass.\n\n        Returns:\n            - str: The created prompt.\n\n        Raises:\n            - Exception: If prompt creation fails.\n        \"\"\"\n        prompt_creator: SummarizationPromptCreator = SummarizationPromptCreator()\n        prompt: str | None = prompt_creator.create_prompt(\n            code,\n            children_summaries,\n            dependency_summaries,\n            import_details,\n            parent_summary,\n            pass_number,\n            previous_summary,\n        )\n\n        if prompt:\n            return prompt\n        else:\n            raise Exception(\"Prompt creation failed.\")\n\n    def _get_summary(\n        self,\n        messages: list[ChatCompletionMessageParam],\n    ) -> OpenAIReturnContext | None:\n        \"\"\"\n        Retrieves the summary from the OpenAI API based on the provided messages and configuration settings.\n\n        Args:\n            - messages (list[ChatCompletionMessageParam]): A list of messages for chat completion.\n\n        Returns:\n            OpenAIReturnContext | None: The summary generated by the OpenAI API, or None if no summary is found.\n        \"\"\"\n\n        try:\n            response: ChatCompletion = self.client.chat.completions.create(\n                messages=messages,\n                model=self.configs.model,\n                max_tokens=self.configs.max_tokens,\n                temperature=self.configs.temperature,\n            )\n            prompt_tokens: int = 0\n            completion_tokens: int = 0\n            summary: str | None = response.choices[0].message.content\n            if response.usage:\n                prompt_tokens = response.usage.prompt_tokens\n                completion_tokens = response.usage.completion_tokens\n\n            return OpenAIReturnContext(\n                prompt_tokens=prompt_tokens,\n                completion_tokens=completion_tokens,\n                summary=summary,\n            )\n\n        except Exception as e:\n            logging.error(e)\n            return None\n\n    def summarize_code(\n        self,\n        code: str,\n        *,\n        model_id: str,\n        children_summaries: str | None,\n        dependency_summaries: str | None,\n        import_details: str | None,\n        parent_summary: str | None = None,\n        pass_number: int = 1,\n        previous_summary: str | None = None,\n    ) -> OpenAIReturnContext | None:\n        \"\"\"\n        Summarizes the provided code snippet using the OpenAI API.\n\n        This method generates a summary of the given code, taking into account various contextual\n        information such as children summaries, dependencies, imports, and parent summaries.\n        It supports multi-pass summarization, allowing for refinement of summaries over multiple passes.\n\n        Args:\n            - code (str): The code snippet to summarize.\n            - model_id (str): The identifier of the model being summarized.\n            - children_summaries (str | None): Summaries of child elements, if any.\n            - dependency_summaries (str | None): Summaries of dependencies, if any.\n            - import_details (str | None): Details of imports used in the code.\n            - parent_summary (str | None): Summary of the parent element, if applicable.\n            - pass_number (int): The current pass number in multi-pass summarization. Default is 1.\n\n        Returns:\n            - OpenAIReturnContext | None: A context object containing the summary and token usage information,\n                                          or None if summarization fails.\n\n        Example:\n            ```Python\n            summarizer = OpenAISummarizer()\n            summary_context = summarizer.summarize_code(\n                code=\"def greet(name):\\n    return f'Hello, {name}!'\",\n                model_id=\"function_greet\",\n                children_summaries=None,\n                dependency_summaries=None,\n                import_details=None,\n                parent_summary=\"Module with greeting functions\",\n                pass_number=2\n            )\n            if summary_context:\n                print(f\"Summary: {summary_context.summary}\")\n                print(f\"Tokens used: {summary_context.prompt_tokens + summary_context.completion_tokens}\")\n            ```\n        \"\"\"\n\n        logging.info(\n            f\"([blue]Pass {pass_number}[/blue]) - [green]Summarizing code for model:[/green] {model_id}\"\n        )\n        prompt: str = self._create_prompt(\n            code,\n            children_summaries,\n            dependency_summaries,\n            import_details,\n            parent_summary,\n            pass_number,\n            previous_summary,\n        )\n        messages: list[ChatCompletionMessageParam] = self._create_messages_list(\n            system_message=self.configs.system_message, user_message=prompt\n        )\n\n        if summary_return_context := self._get_summary(messages):\n            if summary_return_context.summary:\n                summary_return_context.summary = summary_return_context.summary.split(\n                    \"FINAL SUMMARY:\"\n                )[-1].strip()\n                return summary_return_context\n        return None\n\n    def test_summarize_code(\n        self,\n        code: str,\n        *,\n        model_id: str,\n        children_summaries: str | None,\n        dependency_summaries: str | None,\n        import_details: str | None,\n        parent_summary: str | None = None,\n        pass_number: int = 1,\n    ) -> OpenAIReturnContext | None:\n        \"\"\"\n        A method for testing the summarize_code functionality without making API calls.\n\n        This method mimics the behavior of summarize_code but returns a predefined summary instead of\n        making an actual API call. It's useful for testing the summarization pipeline without incurring\n        API costs or when you want to test the surrounding logic.\n\n        Args:\n            - code (str): The code snippet to summarize (not used in the test method).\n            - model_id (str): The identifier of the model being summarized.\n            - children_summaries (str | None): Summaries of child elements, if any.\n            - dependency_summaries (str | None): Summaries of dependencies, if any.\n            - import_details (str | None): Details of imports used in the code.\n            - parent_summary (str | None): Summary of the parent element, if applicable.\n            - pass_number (int): The current pass number in multi-pass summarization. Default is 1.\n\n        Returns:\n            - OpenAIReturnContext | None: A context object containing a test summary and token usage information.\n\n        Example:\n            ```Python\n            summarizer = OpenAISummarizer()\n            test_summary = summarizer.test_summarize_code(\n                code=\"print('Hello, World!')\",\n                model_id=\"test_function\",\n                children_summaries=None,\n                dependency_summaries=None,\n                import_details=None,\n                parent_summary=\"Test Module\",\n                pass_number=1\n            )\n            print(test_summary.summary if test_summary else \"Test summarization failed\")\n            ```\n        \"\"\"\n\n        summary = f\"\"\"\\nTest Summary for {model_id}:\\n\n        Pass Number: {pass_number}\n        Parent Summary: {parent_summary}\n        Children Summaries: {children_summaries}\n        Dependency Summaries: {dependency_summaries}\n        Import Details: {import_details}\n        \"\"\"\n        summary_context = OpenAIReturnContext(\n            summary=summary,\n            prompt_tokens=1,\n            completion_tokens=1,\n        )\n\n        return summary_context\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "The `OpenAISummarizer` class is a Python-based tool designed to automate the generation of detailed and context-aware summaries of code snippets using the OpenAI API. Its primary purpose is to facilitate the creation of comprehensive code summaries through a multi-pass summarization process, which allows for iterative refinement and enhanced accuracy. This functionality is crucial for systems that require detailed code analysis, such as integrated development environments (IDEs), documentation generators, or continuous integration/continuous deployment (CI/CD) pipelines, where understanding and documenting code is essential.\n\nKey components of the `OpenAISummarizer` class include several methods: the `__init__` method initializes the OpenAI client and configuration settings using `OpenAISummarizationConfigs`; `_create_system_message` and `_create_user_message` methods construct system and user messages using OpenAI's `ChatCompletionSystemMessageParam` and `ChatCompletionUserMessageParam` classes, respectively; `_create_messages_list` compiles these messages into a list for chat completion using `ChatCompletionMessageParam`; `_create_prompt` generates a summarization prompt by integrating various contextual inputs such as child summaries, dependencies, and previous summaries, utilizing the `SummarizationPromptCreator` class; `_get_summary` retrieves the summary from the OpenAI API, handling API responses and exceptions; `summarize_code` orchestrates the entire summarization process, supporting multi-pass refinement to improve summary quality; and `test_summarize_code` provides a mechanism for testing the summarization logic without incurring API costs, returning a predefined summary for validation purposes.\n\nThe implementation involves creating structured prompts and messages that are sent to the OpenAI API, which processes these inputs to generate a summary. The class uses exception handling to manage potential errors during API interactions, ensuring robustness and reliability. The design pattern is modular, promoting reusability and scalability, which is crucial for integration with various workflows that require code summarization capabilities. The class also employs a custom `OpenAIReturnContext` to encapsulate the summary and token usage data, providing a structured response that includes both the generated summary and metadata about the API call.\n\nThe technical stack includes the OpenAI API, which provides the natural language processing capabilities necessary for generating human-like summaries. The class relies on OpenAI's Python client for API interactions, utilizing specific classes for message handling and chat completion. Additionally, the `SummarizationPromptCreator` class is used for generating prompts, although its internal workings are not detailed in the provided code snippet. The code also imports configurations from `fenec.configs`, which likely includes settings for API interactions and response handling.\n\nIn the context of a larger system, the `OpenAISummarizer` class serves as a backend component for automated code summarization, potentially integrating with other AI services or developer tools to provide insights and documentation support. It interacts with external modules like `SummarizationPromptCreator` for prompt generation and relies on OpenAI's infrastructure for natural language processing capabilities. This integration allows it to fit seamlessly into a broader ecosystem of tools designed to enhance code understanding and documentation, making it a valuable asset in modern software development environments.",
+    "children_ids": [
+        "fenec:ai_services:summarizer:openai_summarizer.py__*__MODULE__*__CLASS-OpenAISummarizer"
+    ]
+}

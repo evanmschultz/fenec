@@ -1,0 +1,125 @@
+{
+    "docstring": "",
+    "header": [],
+    "footer": [],
+    "imports": [
+        {
+            "import_names": [
+                {
+                    "name": "json",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "logging",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "Path",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "pathlib",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "rmtree",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "shutil",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "Union",
+                    "as_name": "",
+                    "local_block_id": ""
+                }
+            ],
+            "imported_from": "typing",
+            "import_module_type": "STANDARD_LIBRARY",
+            "local_module_id": ""
+        },
+        {
+            "import_names": [
+                {
+                    "name": "ModuleModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-ModuleModel"
+                },
+                {
+                    "name": "ClassModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-ClassModel"
+                },
+                {
+                    "name": "FunctionModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-FunctionModel"
+                },
+                {
+                    "name": "StandaloneCodeBlockModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-StandaloneCodeBlockModel"
+                },
+                {
+                    "name": "DirectoryModel",
+                    "as_name": "",
+                    "local_block_id": "fenec:models:models.py__*__MODULE__*__CLASS-DirectoryModel"
+                }
+            ],
+            "imported_from": "fenec.models.models",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:models:models.py__*__MODULE"
+        },
+        {
+            "import_names": [
+                {
+                    "name": "logging_decorator",
+                    "as_name": "",
+                    "local_block_id": "fenec:utilities:logger:decorators.py__*__MODULE__*__FUNCTION-logging_decorator"
+                }
+            ],
+            "imported_from": "fenec.utilities.logger.decorators",
+            "import_module_type": "LOCAL",
+            "local_module_id": "fenec:utilities:logger:decorators.py__*__MODULE"
+        }
+    ],
+    "id": "fenec:json_management:json_handler.py__*__MODULE",
+    "file_path": "fenec/json_management/json_handler.py",
+    "parent_id": "fenec:json_management__*__DIRECTORY",
+    "block_type": "MODULE",
+    "start_line_num": 1,
+    "end_line_num": 190,
+    "code_content": "import json\nimport logging\nfrom pathlib import Path\nfrom shutil import rmtree\nfrom typing import Union\n\nfrom fenec.models.models import (\n    ModuleModel,\n    ClassModel,\n    FunctionModel,\n    StandaloneCodeBlockModel,\n    DirectoryModel,\n)\nfrom fenec.utilities.logger.decorators import logging_decorator\n\nModelType = Union[\n    ModuleModel,\n    ClassModel,\n    FunctionModel,\n    StandaloneCodeBlockModel,\n    DirectoryModel,\n]\n\n\nclass JSONHandler:\n    \"\"\"\n    A class for handling the serialization and storage of parsed code models in JSON format.\n\n    This class provides methods to save parsed code models, such as modules, classes, functions, standalone code blocks, and directory maps, as JSON files. It ensures proper organization and cleanup of the output directory.\n\n    Attributes:\n        - directory (str): The base directory of the parsed code.\n        - output_directory (str): The directory where JSON output files are stored.\n        - directory_modules (dict[str, list[str]]): A mapping of directories to their corresponding Python files.\n\n    Example:\n        ```Python\n        # This example demonstrates how to use JSONHandler to save a parsed model as JSON.\n        handler = JSONHandler(directory=\"/path/to/code\", directory_modules={})\n        module_model = ModuleModel(id='module1', file_path='/path/to/code/module1.py')\n        handler.save_model_as_json(module_model, file_path='/path/to/code/module1.py')\n        ```\n    \"\"\"\n\n    def __init__(\n        self,\n        directory: str,\n        directory_modules: dict[str, list[str]],\n        output_directory: str = \"output_json\",\n    ) -> None:\n        self.directory: str = directory\n        self.output_directory: str = output_directory\n        self.directory_modules: dict[str, list[str]] = directory_modules\n\n        self._clean_output_directory()\n        self._create_output_directory()\n\n    @logging_decorator(message=\"Saving model as JSON\")\n    def save_model_as_json(\n        self,\n        model: ModelType,\n        file_path: str,\n    ) -> None:\n        \"\"\"\n        Saves a parsed ModelType as JSON.\n\n        Args:\n            - model (ModelType): The parsed code model to be saved.\n            - file_path (str): The file path of the original Python file.\n\n        Example:\n            ```Python\n            # This example demonstrates how to use JSONHandler to save a parsed model as JSON.\n            handler = JSONHandler(directory=\"/path/to/code\", directory_modules={})\n            module_model = ModuleModel(id='module1', file_path='/path/to/code/module1.py')\n            handler.save_model_as_json(module_model, file_path='/path/to/code/module1.py')\n            ```\n        \"\"\"\n\n        json_output_directory: str = self._create_json_output_directory()\n        output_path: str = self._get_json_output_path(file_path, json_output_directory)\n        self._write_json_file(model, output_path)\n\n    @logging_decorator(message=\"Saving visited directories\")\n    def save_visited_directories(\n        self, directory_map_name: str = \"directory_map.json\"\n    ) -> None:\n        \"\"\"\n        Saves a JSON file mapping each visited directory to its Python files.\n\n        The output is saved in a file named 'directory_map.json' within the specified output directory.\n\n        Args:\n            - directory_map_name (str, optional): The name of the output file for the directory map. Defaults to \"directory_map.json\".\n\n        Example:\n            ```Python\n            # This example demonstrates how to save visited directories as a JSON map.\n            handler = JSONHandler(directory=\"/path/to/code\", directory_modules={})\n            handler.save_visited_directories(directory_map_name=\"custom_map.json\")\n            ```\n        \"\"\"\n\n        output_path: str = self._get_directory_map_output_path(directory_map_name)\n        self._write_json_directory_map(output_path)\n\n    def _create_output_directory(self) -> None:\n        \"\"\"Creates the output directory if it does not already exist.\"\"\"\n\n        Path(self.output_directory).mkdir(exist_ok=True)\n\n    def _create_json_output_directory(self) -> str:\n        \"\"\"\n        Creates the JSON output directory if it does not already exist.\n\n        Returns:\n            str: The path to the created JSON output directory.\n        \"\"\"\n\n        json_output_directory: Path = Path(self.output_directory) / \"json\"\n        json_output_directory.mkdir(exist_ok=True)\n        return str(json_output_directory)\n\n    def _get_json_output_path(self, file_path: str, json_output_directory: str) -> str:\n        \"\"\"\n        Gets the output path for a JSON file.\n\n        Args:\n            - file_path (str): The file path of the original Python file.\n            - json_output_directory (str): The path to the JSON output directory.\n\n        Returns:\n            str: The output path for the JSON file.\n        \"\"\"\n\n        # TODO: Find better solution, only if json output will remain in the future for debugging\n        if len(file_path) > 50:\n            file_path = file_path[:50]\n\n        if \"DIRECTORY\" in file_path:\n            safe_file_path: str = file_path.replace(\"/\", \":\")\n            return str(Path(json_output_directory) / f\"{safe_file_path}.json\")\n        else:\n            relative_path: Path = Path(file_path).relative_to(Path(self.directory))\n            safe_relative_path: str = str(relative_path).replace(\"/\", \":\").rstrip(\".py\")\n            return str(Path(json_output_directory) / f\"{safe_relative_path}.json\")\n\n    def _write_json_file(\n        self,\n        module_model: ModelType,\n        output_path: str,\n    ) -> None:\n        \"\"\"\n        Writes a JSON file containing the parsed data from a ModuleModel.\n\n        Args:\n            - module_model (ModelType): The parsed code model.\n            - output_path (str): The path where the JSON file will be saved.\n        \"\"\"\n\n        parsed_data_json: str = module_model.model_dump_json(indent=4)\n        with open(output_path, \"w\") as json_file:\n            json_file.write(parsed_data_json)\n\n    def _get_directory_map_output_path(self, directory_output_name: str) -> str:\n        \"\"\"\n        Gets the output path for the directory map JSON file.\n\n        Args:\n            - directory_output_name (str): The name of the output file for the directory map.\n\n        Returns:\n            str: The output path for the directory map JSON file.\n        \"\"\"\n\n        return str(Path(self.output_directory) / directory_output_name)\n\n    def _write_json_directory_map(self, output_path: str) -> None:\n        \"\"\"Writes the directory map JSON file.\"\"\"\n\n        with open(output_path, \"w\") as json_file:\n            json.dump(self.directory_modules, json_file, indent=4)\n\n    def _clean_output_directory(self) -> None:\n        \"\"\"Deletes the output directory and all its contents.\"\"\"\n\n        output_dir = Path(self.output_directory)\n        if output_dir.exists() and output_dir.is_dir():\n            rmtree(output_dir)\n",
+    "important_comments": [],
+    "dependencies": [],
+    "summary": "The `JSONHandler` class is a pivotal component within a larger code analysis or transformation framework, designed to serialize and store parsed code models in JSON format. Its primary purpose is to convert various code structures—such as modules, classes, functions, standalone code blocks, and directory maps—into JSON files, ensuring that the output directory is systematically organized and cleaned. This functionality is crucial for maintaining a structured representation of codebases, facilitating further analysis, storage, or integration with other system components.\n\nKey components of the `JSONHandler` class include: the `__init__` method, which initializes the handler, sets up the necessary directories, and ensures the output directory is clean; `save_model_as_json`, which saves parsed models as JSON files, leveraging the `model_dump_json` method from the model classes for serialization; `save_visited_directories`, which generates a JSON map of visited directories, aiding in tracking and organizing code files; and several private methods such as `_create_output_directory`, `_create_json_output_directory`, `_get_json_output_path`, `_write_json_file`, `_get_directory_map_output_path`, and `_write_json_directory_map`, which handle directory creation, path management, and file writing operations. These methods ensure that the output is consistently formatted and stored, preventing data clutter and ensuring that only the latest information is retained.\n\nThe implementation employs Python's `json` module for serialization, `pathlib` for file path manipulations, and `shutil` for directory management. The `logging_decorator` from the `fenec.utilities.logger.decorators` module is used to enhance traceability by providing method-level logging, which is crucial for monitoring the execution of the code and diagnosing issues. The design pattern encapsulates file handling logic within a class, promoting reusability and maintainability. Notably, the code includes a mechanism to clean the output directory by deleting its contents before creating new directories, ensuring that outdated files do not persist.\n\nThe technical stack includes standard Python libraries such as `json`, `logging`, `pathlib`, and `shutil`. Additionally, it relies on the `fenec.models.models` module, which provides the data models (`ModuleModel`, `ClassModel`, `FunctionModel`, `StandaloneCodeBlockModel`, `DirectoryModel`) that are serialized into JSON. The use of these models suggests that the `JSONHandler` is part of a larger framework, likely involving code analysis or transformation, where these models represent parsed elements of a codebase.\n\nIn the context of a larger project, this code fits into a system that processes and organizes code models, interacting with other components like model parsers and directory scanners. It provides a structured JSON representation of codebases, which can be used for further analysis, visualization, or integration with other tools. The modular design of the `JSONHandler` class allows it to be easily integrated into various workflows, supporting tasks such as code documentation, refactoring, or compliance checks. Its role in the system is to ensure that the output is consistently formatted and stored, enabling seamless interaction with other components that consume or manipulate the JSON data. This makes it an essential part of a sophisticated code analysis or transformation tool, facilitating the handling of diverse code entities and supporting the system's modular and extensible architecture.",
+    "children_ids": [
+        "fenec:json_management:json_handler.py__*__MODULE__*__STANDALONE_CODE_BLOCK-1",
+        "fenec:json_management:json_handler.py__*__MODULE__*__CLASS-JSONHandler"
+    ]
+}
